@@ -18,8 +18,7 @@ DEV = 0  # Development mode. Change to zero for production.
 
 
 def show_pics():  # Load images and place on canvas.
-    # i = 0  # Track rightness
-    # j = imagetops  # Track downness.
+    i = 0  # Track rightness
 
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
@@ -30,7 +29,8 @@ def show_pics():  # Load images and place on canvas.
         # label.image = photo
         # label.pack(side=LEFT)
         label.image = photo
-        label.pack(side=LEFT)
+        label.grid(row=0, column=i)
+        i += 1
 
 
 def show_instructions():
@@ -45,7 +45,7 @@ def show_instructions():
     frame2 = Frame(root, bg="blue")
     frame2.pack(side=TOP, fill=BOTH, expand=1)
     helv36 = tkFont.Font(family='Helvetica', size=36, weight="bold")
-    label = Label(frame2, text=inst, bg="blue", font=helv36, pady = 200)
+    label = Label(frame2, text=inst, bg="blue", font=helv36, pady=200)
     label.pack()
 
 
@@ -60,13 +60,13 @@ if __name__ == '__main__':
     frame = Frame(root, bg="blue")
     frame.pack(fill=BOTH, expand=1)
 
-    foo = show_pics()
+    show_pics()
 
     # Are we in DEV mode? If so, show quit button.
     if DEV == 0:
-        # frame3=Frame(root,bg="blue")
-        # frame.pack(fill=BOTH,expand=1,side=BOTTOM)
-        button = Button(frame, text="QUIT", fg="red", command=frame.quit)
+        frame3=Frame(root,bg="blue")
+        frame3.pack(fill=BOTH,expand=1,side=BOTTOM)
+        button = Button(frame3, text="QUIT", fg="red", command=frame.quit)
         button.pack(side=BOTTOM)
 
 root.mainloop()
