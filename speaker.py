@@ -43,8 +43,10 @@ def show_pics():  # Load images and place on canvas.
         label[i-1].grid(row=0, column=i)
         i += 1
 
-    root.after(2000,widther(i, label))
+    root.bind("<Map>", widther(i, label))
 
+#def snurb():
+#    print(frame.grid_bbox())
 
 def widther(i, label):
     """
@@ -57,13 +59,16 @@ def widther(i, label):
     # Find out how wide the window is
     windowsize = parsegeom(root.geometry())
     width = windowsize[0]
-    gridth = label[1].winfo_width()
+    gridth = label[0].grid_bbox()
     print(gridth)
     print(width)
-    padding = (width - i * gridth) / 2  # Number found through experimentation
+    padding = (width - i * gridth[2]) / 2  # Number found through experimentation
     print(padding)
     dummy = Label(frame, text=" ", bg="blue")
     dummy.grid(row=0, column=0, padx=padding)
+    #foo=Button(frame,text="GLURP",command=snurb)
+    #foo.grid(row=1,column=0)
+    #print(dummy.winfo_geometry())
 
 
 def show_instructions():
@@ -91,6 +96,7 @@ def quitter():
     frame3.pack(fill=BOTH, expand=1, side=BOTTOM)
     button = Button(frame3, text="QUIT", fg="red", command=frame.quit)
     button.pack(side=BOTTOM)
+    #button2=Button()
 
 
 if __name__ == '__main__':
