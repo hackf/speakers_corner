@@ -18,7 +18,11 @@ DEV = 0  # Development mode. Change to zero for production.
 
 
 def show_pics():  # Load images and place on canvas.
-    i = 0  # Track rightness
+    i = 1  # Track rightness
+
+    #Padding hack
+    dummy=Label(frame,bg="blue")
+    dummy.grid(padx=200)
 
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
