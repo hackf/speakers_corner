@@ -14,7 +14,7 @@ frame = Frame(root, bg="blue")
 frame.grid(row=0)
 
 maxwidth = 5    # Sets the maximum number of columns if images in the window
-imagetops = 0   # Initial row the images should appear in
+imagetops = 5   # Initial row the images should appear in
 DEV=1           #Development mode. Change to zero for production.
 
 def show_pics():  # Load images and place on canvas.
@@ -37,8 +37,19 @@ def show_pics():  # Load images and place on canvas.
             j += 1
     return j
 
+def show_instructions():
+    """
+    Displays the instruction label.
 
+    :return:
+    """
+    inst="Welcome to Speaker's Corner! Press button to begin recording!"
+    label = Label(frame,text=inst, bg="blue")
+    label.grid(row=0,column=0)
 
+if __name__ == '__main__':
+    show_instructions()
+    show_pics()
 
 # NB: Quit button is only here for development purposes.
 if DEV==1:
