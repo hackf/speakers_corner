@@ -44,7 +44,8 @@ def show_pics():  # Load images and place on canvas.
         label[i-1].grid(row=0, column=i)
         i += 1
 
-    root.after(1000, widther,i,label)
+    root.after(500, widther,i,label)  # Using Tkinter means that width numbers are 0 until
+                                      # screen is updated. So we wait 500ms.
 
 
 def widther(i, label):
@@ -105,8 +106,8 @@ def quitter():
 
 if __name__ == '__main__':
     root = Tk()
-    # root.attributes("-bg", "blue")
-    # Fullscreen
+
+
     root.attributes("-fullscreen", True)
     show_instructions()
 
