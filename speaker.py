@@ -33,14 +33,13 @@ def show_pics():  # Load images and place on canvas.
     i = 1  # Track rightness
 
 
+
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
         image.thumbnail(size, Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
 
         label = Label(frame, image=photo, bg="blue")
-        # label.image = photo
-        # label.pack(side=LEFT)
         label.image = photo
         label.grid(row=1, column=i)
         i += 1
@@ -50,7 +49,7 @@ def show_pics():  # Load images and place on canvas.
     windowsize = parsegeom(root.geometry())
     width=windowsize[0]
     print(width)
-    padding=(width- 1000)/2
+    padding=(width-i*175)/2  # Number found through experimentation
     print(padding)
     dummy = Label(frame, bg="blue")
     dummy.grid(row=0, padx=padding)
