@@ -23,7 +23,9 @@ def parsegeom(geometry):
     :param geometry:
     :return:
     """
+    print(geometry)
     m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", geometry)
+    #print(m)
     if not m:
         raise ValueError("failed to parse geometry string")
     return map(int, m.groups())
@@ -49,9 +51,9 @@ def show_pics():  # Load images and place on canvas.
         i += 1
 
     # Padding hack
-
+    padding=(width-i*size[0])/2
     dummy = Label(frame, bg="blue")
-    dummy.grid(row=0, padx=200)
+    dummy.grid(row=0, padx=padding)
 
 
 def show_instructions():
