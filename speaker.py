@@ -43,7 +43,7 @@ def show_pics():  # Load images and place on canvas.
         label[i-1].grid(row=0, column=i)
         i += 1
 
-    root.bind("<Map>", widther(i, label))
+    root.after(1000, widther,i,label)
 
 #def snurb():
 #    print(frame.grid_bbox())
@@ -57,12 +57,20 @@ def widther(i, label):
     """
     # Padding hack
     # Find out how wide the window is
+    q=0
+    for widthulate in label:
+        q+=widthulate.winfo_width()
+        #print(q)
+
     windowsize = parsegeom(root.geometry())
     width = windowsize[0]
-    gridth = label[0].grid_bbox()
-    print(gridth)
+    #width=frame.winfo_width()
+    gridth = frame.grid_bbox(row=0,column=i)
+    #gridth2 = frame.grid_bbox(row=0,column=0)
+    #print(gridth,gridth2)
+    print(i)
     print(width)
-    padding = (width - i * gridth[2]) / 2  # Number found through experimentation
+    padding = (width - q)/4  # Number found through experimentation
     print(padding)
     dummy = Label(frame, text=" ", bg="blue")
     dummy.grid(row=0, column=0, padx=padding)
