@@ -66,11 +66,13 @@ if __name__ == '__main__':
     frame.pack(fill=BOTH,expand=1)
 
     foo = show_pics()
+
+    # Are we in DEV mode? If so, show quit button.
     if DEV == 0:
         button = Button(frame, text="QUIT", fg="red", bg="blue", command=frame.quit)
         button.grid(row=foo + 1,
                     column=maxwidth / 2)  # show_pics()+1 ensures that quit button is below everything.
-# NB: Quit button is only here for development purposes.
+
 
 
 root.mainloop()
