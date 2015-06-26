@@ -3,6 +3,8 @@ __author__ = 'wackyvorlon'
 from Tkinter import *
 from PIL import ImageTk, Image
 import glob
+import tkFont
+
 
 size = 128, 128  # Size of images to display
 
@@ -45,9 +47,10 @@ def show_instructions():
 
     :return:
     """
-    inst = "Welcome to Speaker's Corner! Press button to begin recording!"
-    label = Label(frame, text=inst, bg="blue")
-    label.grid(row=0, column=maxwidth/2)
+    inst = "Welcome to Speaker's Corner!\nPress button to begin recording!"
+    helv36 = tkFont.Font(family='Helvetica', size=36, weight="bold")
+    label = Label(frame, text=inst, bg="blue", font=helv36)
+    label.grid(row=0, column=0, columnspan=maxwidth)
 
 
 if __name__ == '__main__':
