@@ -23,7 +23,7 @@ def parsegeom(geometry):
     """
     print(geometry)
     m = re.match("(\d+)x(\d+)([-+]\d+)[-+]+\d+", geometry)
-    #print(m)
+    # print(m)
     if not m:
         raise ValueError("failed to parse geometry string")
     return map(int, m.groups())
@@ -31,28 +31,29 @@ def parsegeom(geometry):
 
 def show_pics():  # Load images and place on canvas.
     i = 1  # Track rightness
-
-
+    label = []  # Our image labels
 
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
         image.thumbnail(size, Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
 
-        label = Label(frame, image=photo, bg="blue")
-        label.image = photo
-        label.grid(row=1, column=i)
+        label.append(Label(frame, image=photo, bg="blue"))
+        label[i-1].image = photo
+        label[i-1].grid(row=0, column=i)
         i += 1
 
     # Padding hack
-    #Find out how wide the window is
+    # Find out how wide the window is
     windowsize = parsegeom(root.geometry())
-    width=windowsize[0]
+    width = windowsize[0]
+    #gridth = label[0].grid_bbox(row=1,column=1)
+    #print(gridth[0])
     print(width)
-    padding=(width-i*175)/2  # Number found through experimentation
+    padding = (width - i*175) / 2  # Number found through experimentation
     print(padding)
-    dummy = Label(frame, bg="blue")
-    dummy.grid(row=0, padx=padding)
+    dummy = Label(frame, text=" ", bg="blue")
+    dummy.grid(row=0,column = 0, padx=padding)
 
 
 def show_instructions():
