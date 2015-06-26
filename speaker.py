@@ -13,7 +13,7 @@ root = Tk()
 frame = Frame(root, bg="blue")
 frame.grid(row=0)
 
-maxwidth = 3    # Sets the maximum number of columns if images in the window
+maxwidth = 5    # Sets the maximum number of columns if images in the window
 imagetops = 0   # Initial row the images should appear in
 DEV=1           #Development mode. Change to zero for production.
 
@@ -37,7 +37,7 @@ def show_pics():  # Load images and place on canvas.
             j += 1
     return j
 
-# show_pics()
+
 
 
 # NB: Quit button is only here for development purposes.
