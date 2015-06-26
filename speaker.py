@@ -43,17 +43,27 @@ def show_pics():  # Load images and place on canvas.
         label[i-1].grid(row=0, column=i)
         i += 1
 
+    root.after(2000,widther(i, label))
+
+
+def widther(i, label):
+    """
+    Adds a dummy label to centre images.
+    :param i:
+    :param label:
+    :return:
+    """
     # Padding hack
     # Find out how wide the window is
     windowsize = parsegeom(root.geometry())
     width = windowsize[0]
-    #gridth = label[0].grid_bbox(row=1,column=1)
-    #print(gridth[0])
+    gridth = label[1].winfo_width()
+    print(gridth)
     print(width)
-    padding = (width - i*175) / 2  # Number found through experimentation
+    padding = (width - i * gridth) / 2  # Number found through experimentation
     print(padding)
     dummy = Label(frame, text=" ", bg="blue")
-    dummy.grid(row=0,column = 0, padx=padding)
+    dummy.grid(row=0, column=0, padx=padding)
 
 
 def show_instructions():
