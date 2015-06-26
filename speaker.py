@@ -14,11 +14,12 @@ frame = Frame(root)
 frame.grid(row=0)
 
 maxwidth = 3  # Sets the maximum number of columns if images in the window
+imagetops = 0  # Initial row the images should appear in
 
 
 def show_pics():  # Load images and place on canvas.
     i = 0  # Track rightness
-    j = 0  # Track downness.
+    j = imagetops  # Track downness.
 
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
@@ -38,6 +39,8 @@ def show_pics():  # Load images and place on canvas.
 
 # show_pics()
 
+
+# NB: Quit button is only here for development purposes.
 button = Button(text="QUIT", fg="red", command=frame.quit)
 button.grid(row=show_pics() + 1, column=maxwidth / 2)  # show_pics()+1 ensures that quit button is below everything.
 
