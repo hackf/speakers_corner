@@ -30,7 +30,7 @@ def show_pics():  # Load images and place on canvas.
         # label.image = photo
         # label.pack(side=LEFT)
         label.image = photo
-        label.pack(fill=X,anchor=CENTER,side=LEFT)
+        label.pack(side=LEFT)
 
 
 def show_instructions():
@@ -45,7 +45,7 @@ def show_instructions():
     frame2 = Frame(root, bg="blue")
     frame2.pack(side=TOP, fill=BOTH, expand=1)
     helv36 = tkFont.Font(family='Helvetica', size=36, weight="bold")
-    label = Label(frame2, text=inst, bg="blue", font=helv36)
+    label = Label(frame2, text=inst, bg="blue", font=helv36, pady = 200)
     label.pack()
 
 
