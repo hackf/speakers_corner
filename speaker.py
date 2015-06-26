@@ -9,8 +9,6 @@ size = 128, 128  # Size of images to display
 
 # TODO Add Raspberry pi camera and GPIO code
 
-root = Tk()
-
 # frame = Frame(root, bg="blue")
 # frame.grid(row=0)
 
@@ -47,17 +45,23 @@ def show_instructions():
     :return:
     """
     inst = "Welcome to Speaker's Corner!\nPress button to begin recording!"
+
+    # Create our own frame.
+    frame2=Frame(root)
+    frame2.pack(side=TOP)
     helv36 = tkFont.Font(family='Helvetica', size=36, weight="bold")
-    label = Label(frame, text=inst, bg="blue", font=helv36)
+    label = Label(frame2, text=inst, bg="blue", font=helv36)
     label.grid(row=0, column=0, columnspan=maxwidth)
 
 
 if __name__ == '__main__':
+    root=Tk()
+    #root.attributes("-bg", "blue")
     # Fullscreen?
     if DEV == 0:
         root.attributes("-fullscreen", True)
     frame = Frame(root, bg="blue")
-    frame.grid()
+    frame.pack()
     show_instructions()
     foo = show_pics()
     if DEV == 0:
