@@ -10,7 +10,7 @@ size = 128, 128  # Size of images to display
 
 root = Tk()
 
-frame = Frame(root)
+frame = Frame(root, bg="blue")
 frame.grid(row=0)
 
 maxwidth = 3    # Sets the maximum number of columns if images in the window
@@ -26,7 +26,7 @@ def show_pics():  # Load images and place on canvas.
         image.thumbnail(size, Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
 
-        label = Label(image=photo)
+        label = Label(frame, image=photo,bg="blue")
         # label.image = photo
         # label.pack(side=LEFT)
         label.image = photo
@@ -43,7 +43,7 @@ def show_pics():  # Load images and place on canvas.
 # NB: Quit button is only here for development purposes.
 if DEV==1:
 
-    button = Button(text="QUIT", fg="red", command=frame.quit)
+    button = Button(frame, text="QUIT", fg="red",bg="blue", command=frame.quit)
     button.grid(row=show_pics() + 1, column=maxwidth / 2)  # show_pics()+1 ensures that quit button is below everything.
 
 root.mainloop()
