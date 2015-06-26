@@ -10,8 +10,6 @@ size = 128, 128  # Size of images to display
 
 # TODO Add Raspberry pi camera and GPIO code
 
-# frame = Frame(root, bg="blue")
-# frame.grid(row=0)
 
 # maxwidth = 5  # Sets the maximum number of columns if images in the window
 
@@ -34,9 +32,6 @@ def parsegeom(geometry):
 def show_pics():  # Load images and place on canvas.
     i = 1  # Track rightness
 
-    #Find out how wide the window is
-    windowsize = parsegeom(root.geometry())
-    width=windowsize[0]
 
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
@@ -51,7 +46,12 @@ def show_pics():  # Load images and place on canvas.
         i += 1
 
     # Padding hack
-    padding=(width-i*size[0])/2
+    #Find out how wide the window is
+    windowsize = parsegeom(root.geometry())
+    width=windowsize[0]
+    print(width)
+    padding=(width- 1000)/2
+    print(padding)
     dummy = Label(frame, bg="blue")
     dummy.grid(row=0, padx=padding)
 
