@@ -13,9 +13,9 @@ root = Tk()
 frame = Frame(root)
 frame.grid(row=0)
 
-maxwidth = 3  # Sets the maximum number of columns if images in the window
-imagetops = 0  # Initial row the images should appear in
-
+maxwidth = 3    # Sets the maximum number of columns if images in the window
+imagetops = 0   # Initial row the images should appear in
+DEV=1           #Development mode. Change to zero for production.
 
 def show_pics():  # Load images and place on canvas.
     i = 0  # Track rightness
@@ -41,7 +41,9 @@ def show_pics():  # Load images and place on canvas.
 
 
 # NB: Quit button is only here for development purposes.
-button = Button(text="QUIT", fg="red", command=frame.quit)
-button.grid(row=show_pics() + 1, column=maxwidth / 2)  # show_pics()+1 ensures that quit button is below everything.
+if DEV==1:
+
+    button = Button(text="QUIT", fg="red", command=frame.quit)
+    button.grid(row=show_pics() + 1, column=maxwidth / 2)  # show_pics()+1 ensures that quit button is below everything.
 
 root.mainloop()
