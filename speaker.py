@@ -5,19 +5,18 @@ from PIL import ImageTk, Image
 import glob
 import tkFont
 
-
 size = 128, 128  # Size of images to display
 
 # TODO Add Raspberry pi camera and GPIO code
 
 root = Tk()
 
-frame = Frame(root, bg="blue")
-frame.grid(row=0)
+# frame = Frame(root, bg="blue")
+# frame.grid(row=0)
 
 maxwidth = 5  # Sets the maximum number of columns if images in the window
 imagetops = 1  # Initial row the images should appear in
-DEV = 1  # Development mode. Change to zero for production.
+DEV = 0  # Development mode. Change to zero for production.
 
 
 def show_pics():  # Load images and place on canvas.
@@ -54,9 +53,14 @@ def show_instructions():
 
 
 if __name__ == '__main__':
+    # Fullscreen?
+    if DEV == 0:
+        root.attributes("-fullscreen", True)
+    frame = Frame(root, bg="blue")
+    frame.grid()
     show_instructions()
-    foo=show_pics()
-    if DEV == 1:
+    foo = show_pics()
+    if DEV == 0:
         button = Button(frame, text="QUIT", fg="red", bg="blue", command=frame.quit)
         button.grid(row=foo + 1,
                     column=maxwidth / 2)  # show_pics()+1 ensures that quit button is below everything.
