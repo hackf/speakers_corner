@@ -47,11 +47,11 @@ def show_instructions():
     inst = "Welcome to Speaker's Corner!\nPress button to begin recording!"
 
     # Create our own frame.
-    frame2=Frame(root)
-    frame2.pack(side=TOP)
+    frame2=Frame(root,bg="blue")
+    frame2.pack(side=TOP,fill=BOTH, expand=1)
     helv36 = tkFont.Font(family='Helvetica', size=36, weight="bold")
     label = Label(frame2, text=inst, bg="blue", font=helv36)
-    label.grid(row=0, column=0, columnspan=maxwidth)
+    label.pack()
 
 
 if __name__ == '__main__':
@@ -60,9 +60,11 @@ if __name__ == '__main__':
     # Fullscreen?
     if DEV == 0:
         root.attributes("-fullscreen", True)
-    frame = Frame(root, bg="blue")
-    frame.pack()
     show_instructions()
+
+    frame = Frame(root, bg="blue")
+    frame.pack(fill=BOTH,expand=1)
+
     foo = show_pics()
     if DEV == 0:
         button = Button(frame, text="QUIT", fg="red", bg="blue", command=frame.quit)
