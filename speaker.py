@@ -30,7 +30,7 @@ def show_pics():  # Load images and place on canvas.
         # label.image = photo
         # label.pack(side=LEFT)
         label.image = photo
-        label.pack()
+        label.pack(side=LEFT)
 
 
 
@@ -66,7 +66,8 @@ if __name__ == '__main__':
 
     # Are we in DEV mode? If so, show quit button.
     if DEV == 0:
-        button = Button(frame, text="QUIT", fg="red", bg="blue", command=frame.quit)
+        frame3=Frame(root,bg="blue")
+        button = Button(frame3, text="QUIT", fg="red", bg="blue", command=frame.quit)
         button.pack()
 
 
