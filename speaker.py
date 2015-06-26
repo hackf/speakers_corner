@@ -4,6 +4,7 @@ from Tkinter import *
 from PIL import ImageTk, Image
 import glob
 import tkFont
+import re
 
 size = 128, 128  # Size of images to display
 
@@ -14,15 +15,26 @@ size = 128, 128  # Size of images to display
 
 # maxwidth = 5  # Sets the maximum number of columns if images in the window
 
-DEV = 0  # Development mode. Change to zero for production.
+
+def parsegeom(geometry):
+    """
+    Parses window geometry
+    Code thanks to: http://effbot.org/tkinterbook/wm.htm
+    :param geometry:
+    :return:
+    """
+    m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", geometry)
+    if not m:
+        raise ValueError("failed to parse geometry string")
+    return map(int, m.groups())
 
 
 def show_pics():  # Load images and place on canvas.
     i = 1  # Track rightness
 
-    #Padding hack
-    dummy=Label(frame,bg="blue")
-    dummy.grid(padx=200)
+    #Find out how wide the window is
+    windowsize = parsegeom(root.geometry())
+    width=windowsize[0]
 
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
@@ -35,6 +47,11 @@ def show_pics():  # Load images and place on canvas.
         label.image = photo
         label.grid(row=0, column=i)
         i += 1
+
+    # Padding hack
+
+    dummy = Label(frame, bg="blue")
+    dummy.grid(row=0, padx=200)
 
 
 def show_instructions():
@@ -53,12 +70,22 @@ def show_instructions():
     label.pack()
 
 
+def quitter():
+    """
+    Add quit button during development.
+    :return:
+    """
+    frame3 = Frame(root, bg="blue")
+    frame3.pack(fill=BOTH, expand=1, side=BOTTOM)
+    button = Button(frame3, text="QUIT", fg="red", command=frame.quit)
+    button.pack(side=BOTTOM)
+
+
 if __name__ == '__main__':
     root = Tk()
     # root.attributes("-bg", "blue")
-    # Fullscreen?
-    if DEV == 0:
-        root.attributes("-fullscreen", True)
+    # Fullscreen
+    root.attributes("-fullscreen", True)
     show_instructions()
 
     frame = Frame(root, bg="blue")
@@ -66,11 +93,8 @@ if __name__ == '__main__':
 
     show_pics()
 
-    # Are we in DEV mode? If so, show quit button.
-    if DEV == 0:
-        frame3=Frame(root,bg="blue")
-        frame3.pack(fill=BOTH,expand=1,side=BOTTOM)
-        button = Button(frame3, text="QUIT", fg="red", command=frame.quit)
-        button.pack(side=BOTTOM)
+    # TODO Change to false for production
+    if True:
+        quitter()
 
 root.mainloop()
