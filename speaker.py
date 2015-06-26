@@ -18,10 +18,11 @@ def parsegeom(geometry):
     """
     Parses window geometry
     Code thanks to: http://effbot.org/tkinterbook/wm.htm
+
     :param geometry:
     :return:
     """
-    print(geometry)
+    #print(geometry)
     m = re.match("(\d+)x(\d+)([-+]\d+)[-+]+\d+", geometry)
     # print(m)
     if not m:
@@ -30,8 +31,8 @@ def parsegeom(geometry):
 
 
 def show_pics():  # Load images and place on canvas.
-    i = 1  # Track rightness
-    label = []  # Our image labels
+    i = 1         # Track rightness
+    label = []    # Our image labels
 
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
@@ -45,8 +46,6 @@ def show_pics():  # Load images and place on canvas.
 
     root.after(1000, widther,i,label)
 
-#def snurb():
-#    print(frame.grid_bbox())
 
 def widther(i, label):
     """
@@ -55,28 +54,25 @@ def widther(i, label):
     :param label:
     :return:
     """
+
     # Padding hack
-    # Find out how wide the window is
+    # Find out how wide the labels are
     q=0
     for widthulate in label:
         q+=widthulate.winfo_width()
-        #print(q)
 
+    # Grab window dimensions
     windowsize = parsegeom(root.geometry())
     width = windowsize[0]
-    #width=frame.winfo_width()
-    gridth = frame.grid_bbox(row=0,column=i)
-    #gridth2 = frame.grid_bbox(row=0,column=0)
-    #print(gridth,gridth2)
-    print(i)
-    print(width)
-    padding = (width - q)/4  # Number found through experimentation
-    print(padding)
+
+    # Calculate requisite padding
+    padding = (width - q)/4  # Number found through experimentation. I have no idea why it's 4.
+    padding = abs(padding)   # In case too many images are in file, stop padding from going negative
+                             # and killing the program.
+
     dummy = Label(frame, text=" ", bg="blue")
     dummy.grid(row=0, column=0, padx=padding)
-    #foo=Button(frame,text="GLURP",command=snurb)
-    #foo.grid(row=1,column=0)
-    #print(dummy.winfo_geometry())
+
 
 
 def show_instructions():
