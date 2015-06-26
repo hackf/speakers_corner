@@ -12,8 +12,8 @@ size = 128, 128  # Size of images to display
 # frame = Frame(root, bg="blue")
 # frame.grid(row=0)
 
-maxwidth = 5  # Sets the maximum number of columns if images in the window
-imagetops = 1  # Initial row the images should appear in
+#maxwidth = 5  # Sets the maximum number of columns if images in the window
+
 DEV = 0  # Development mode. Change to zero for production.
 
 
@@ -66,9 +66,10 @@ if __name__ == '__main__':
 
     # Are we in DEV mode? If so, show quit button.
     if DEV == 0:
-        frame3=Frame(root,bg="blue")
-        button = Button(frame3, text="QUIT", fg="red", bg="blue", command=frame.quit)
-        button.pack()
+        #frame3=Frame(root,bg="blue")
+        #frame.pack(fill=BOTH,expand=1,side=BOTTOM)
+        button = Button(frame, text="QUIT", fg="red", command=frame.quit)
+        button.pack(side=BOTTOM)
 
 
 
