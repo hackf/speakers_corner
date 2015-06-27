@@ -6,6 +6,7 @@ import glob
 import tkFont
 import re
 import picamera
+import time
 
 size = 128, 128  # Size of images to display
 
@@ -119,13 +120,13 @@ def camerate(d) :
     """
     print("Camerating...")
     if d==1 :
-        root.attributes("-fullscreen", False)
+        #root.attributes("-fullscreen", False)
         root.withdraw()
         camera.start_preview()
     elif d==0 :
         camera.stop_preview()
         root.deiconify()
-        root.attributes("-fullscreen", True)
+        #root.attributes("-fullscreen", True)
 
 
 
