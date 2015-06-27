@@ -112,17 +112,17 @@ def setup_camera():
     root.after(2000, camerate)
     root.after(3000, camerate)
 
-def camerate(s) :
+def camerate(d) :
     """
     Handles camera things.
     :return:
     """
     print("Camerating...")
-    if s==1 :
+    if d==1 :
         root.attributes("-fullscreen", False)
         root.withdraw()
         camera.start_preview()
-    elif s==0 :
+    elif d==0 :
         camera.stop_preview()
         root.deiconify()
         root.attributes("-fullscreen", False)
@@ -144,6 +144,7 @@ if __name__ == '__main__':
     # root.bind("<Key-q>", frame.quit)
 
     show_pics()
+    setup_camera()
 
     root.after(10000, frame.quit)
 
