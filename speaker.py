@@ -125,7 +125,7 @@ def camerate(d) :
     elif d==0 :
         camera.stop_preview()
         root.deiconify()
-        root.attributes("-fullscreen", False)
+        root.attributes("-fullscreen", True)
 
 
 
