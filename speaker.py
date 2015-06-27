@@ -117,6 +117,7 @@ def camerate(s) :
     Handles camera things.
     :return:
     """
+    print("Camerating...")
     if s==1 :
         root.attributes("-fullscreen", False)
         root.withdraw()
