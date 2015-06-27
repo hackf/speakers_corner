@@ -2,6 +2,8 @@
 
 Speaker's Corner Project
 
+** Note: There's going to be a lot of commits. I'm developing this via a very screwy wifi dongle.**
+
 ### What is this repository for? ###
 
 * Quick summary
