@@ -122,11 +122,22 @@ def camerate(d) :
     if d==1 :
         #root.attributes("-fullscreen", False)
         root.withdraw()
-        camera.start_preview()
+        camera.start_recording(genfilename(), format="h264")
     elif d==0 :
-        camera.stop_preview()
+        camera.stop_recording()
         root.deiconify()
         #root.attributes("-fullscreen", True)
+
+def genfilename():
+    """
+    Create filename for video.
+    :return:
+    """
+    timestr = "recordings/recording-"
+    timestr += time.strftime("%Y%m%d-%H%M%S")
+    timestr += ".avi"
+    print(timestr)
+    return timestr
 
 
 
