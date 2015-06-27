@@ -121,13 +121,13 @@ def camerate(d) :
     print("Camerating...")
     if d==1 :
         #root.attributes("-fullscreen", False)
-        root.withdraw()
+        #Prewroot.withdraw()
         camera.start_preview()
         camera.start_recording(genfilename(), format="h264")
     elif d==0 :
         camera.stop_recording()
         camera.stop_preview()
-        root.deiconify()
+        #root.deiconify()
         #root.attributes("-fullscreen", True)
 
 def genfilename():
