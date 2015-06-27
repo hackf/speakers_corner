@@ -125,6 +125,8 @@ if __name__ == '__main__':
 
     show_pics()
 
+    root.after(5000, frame.quit)
+
     if False:
         quitter()
 
