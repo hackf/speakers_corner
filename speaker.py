@@ -108,11 +108,29 @@ def setup_camera():
     Configure the camera and bind things.
     :return:
     """
-    camera = picamera.PiCamera()
-    root.after(2000, camera.start_preview)
-    root.after(3000, camera.stop_preview)
+
+    root.after(2000, camerate, 1)
+    root.after(3000, camerate, 0)
+
+def camerate(s) :
+    """
+    Handles camera things.
+    :return:
+    """
+    if s==1 :
+        root.withdraw()
+        camera.start_preview()
+    elif s==0 :
+        camera.stop_preview()
+        root.deiconify()
+    else
+        print("What?!")
+
 
 if __name__ == '__main__':
+
+    # Initialize camera variable
+    camera=picamera.PiCamera()
     root = Tk()
 
     root.attributes("-fullscreen", True)
