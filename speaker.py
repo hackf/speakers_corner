@@ -43,14 +43,13 @@ def show_pics():  # Load images and place on canvas.
         label[i - 1].grid(row=0, column=i)
         i += 1
 
-    root.after(750, widther, i, label)  # Using Tkinter means that width numbers are 0 until
-    # screen is updated. So we wait 750ms.
+    root.after(750, widther, label)  # Using Tkinter means that width numbers are 0 until
+                                     # screen is updated. So we wait 750ms.
 
 
-def widther(i, label):
+def widther(label):
     """
     Adds a dummy label to centre images.
-    :param i:
     :param label:
     :return:
     """
@@ -67,8 +66,8 @@ def widther(i, label):
 
     # Calculate requisite padding
     padding = (width - q) / 4  # Number found through experimentation. I have no idea why it's 4.
-    padding = abs(padding)  # In case too many images are in file, stop padding from going negative
-    # and killing the program.
+    padding = abs(padding)     # In case too many images are in file, stop padding from going negative
+                               # and killing the program.
 
     dummy = Label(frame, text=" ", bg="blue")
     dummy.grid(row=0, column=0, padx=padding)
