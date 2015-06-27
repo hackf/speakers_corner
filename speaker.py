@@ -30,8 +30,8 @@ def parsegeom(geometry):
 
 
 def show_pics():  # Load images and place on canvas.
-    i = 1         # Track rightness
-    label = []    # Our image labels
+    i = 1  # Track rightness
+    label = []  # Our image labels
 
     for file in glob.glob("images/*.jpg"):
         image = Image.open(file)
@@ -39,12 +39,12 @@ def show_pics():  # Load images and place on canvas.
         photo = ImageTk.PhotoImage(image)
 
         label.append(Label(frame, image=photo, bg="blue"))
-        label[i-1].image = photo
-        label[i-1].grid(row=0, column=i)
+        label[i - 1].image = photo
+        label[i - 1].grid(row=0, column=i)
         i += 1
 
-    root.after(750, widther,i,label)  # Using Tkinter means that width numbers are 0 until
-                                      # screen is updated. So we wait 750ms.
+    root.after(750, widther, i, label)  # Using Tkinter means that width numbers are 0 until
+    # screen is updated. So we wait 750ms.
 
 
 def widther(i, label):
@@ -57,22 +57,21 @@ def widther(i, label):
 
     # Padding hack
     # Find out how wide the labels are
-    q=0
+    q = 0
     for widthulate in label:
-        q+=widthulate.winfo_width()
+        q += widthulate.winfo_width()
 
     # Grab window dimensions
     windowsize = parsegeom(root.geometry())
     width = windowsize[0]
 
     # Calculate requisite padding
-    padding = (width - q)/4  # Number found through experimentation. I have no idea why it's 4.
-    padding = abs(padding)   # In case too many images are in file, stop padding from going negative
-                             # and killing the program.
+    padding = (width - q) / 4  # Number found through experimentation. I have no idea why it's 4.
+    padding = abs(padding)  # In case too many images are in file, stop padding from going negative
+    # and killing the program.
 
     dummy = Label(frame, text=" ", bg="blue")
     dummy.grid(row=0, column=0, padx=padding)
-
 
 
 def show_instructions():
@@ -100,12 +99,10 @@ def quitter():
     frame3.pack(fill=BOTH, expand=1, side=BOTTOM)
     button = Button(frame3, text="QUIT", fg="red", command=frame.quit)
     button.pack(side=BOTTOM)
-    #button2=Button()
 
 
 if __name__ == '__main__':
     root = Tk()
-
 
     root.attributes("-fullscreen", True)
     show_instructions()
@@ -120,5 +117,3 @@ if __name__ == '__main__':
         quitter()
 
     root.mainloop()
-
-
