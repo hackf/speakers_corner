@@ -104,6 +104,7 @@ if __name__ == '__main__':
     root = Tk()
 
     root.attributes("-fullscreen", True)
+    root.configure(cursor="none")
     show_instructions()
 
     frame = Frame(root, bg="blue")
