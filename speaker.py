@@ -79,7 +79,10 @@ def show_instructions():
 
     :return:
     """
-    inst = "Welcome to Speaker's Corner!\nPress button to begin recording!"
+    # inst = "Welcome to Speaker's Corner!\nPress button to begin recording!"
+
+    with file("images/inst.txt") as f:
+        inst=f.read(100) # Maximum of 100 characters, more tends to fill the screen.
 
     # Create our own frame.
     frame2 = Frame(root, bg="blue")
@@ -109,7 +112,7 @@ if __name__ == '__main__':
 
     frame = Frame(root, bg="blue")
     frame.pack(fill=BOTH, expand=1)
-    root.bind("<Key-q>", frame.quit)
+    # root.bind("<Key-q>", frame.quit)
 
     show_pics()
 
