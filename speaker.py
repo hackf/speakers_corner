@@ -109,8 +109,8 @@ def setup_camera():
     :return:
     """
 
-    root.after(2000, camerate, 1)
-    root.after(3000, camerate, 0)
+    root.after(2000, camerate)
+    root.after(3000, camerate)
 
 def camerate(s) :
     """
