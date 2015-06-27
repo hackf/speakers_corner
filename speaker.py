@@ -85,7 +85,7 @@ def show_instructions():
     frame2 = Frame(root, bg="blue")
     frame2.pack(side=TOP, fill=BOTH, expand=1)
     helv36 = tkFont.Font(family='Helvetica', size=36, weight="bold")
-    label = Label(frame2, text=inst, bg="blue", font=helv36, pady=200)
+    label = Label(frame2, text=inst, bg="blue", font=helv36, pady=200, fg="red")
     label.pack()
 
 
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     root = Tk()
 
     root.attributes("-fullscreen", True)
-    root.configure(cursor="none")
+    root.configure(cursor='none')
     show_instructions()
 
     frame = Frame(root, bg="blue")
