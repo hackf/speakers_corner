@@ -112,8 +112,7 @@ if __name__ == '__main__':
 
     show_pics()
 
-    # TODO Change to false for production
-    if True:
+    if False:
         quitter()
 
     root.mainloop()
