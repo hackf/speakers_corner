@@ -109,6 +109,7 @@ if __name__ == '__main__':
 
     frame = Frame(root, bg="blue")
     frame.pack(fill=BOTH, expand=1)
+    root.bind("<Key-q>", frame.quit)
 
     show_pics()
 
