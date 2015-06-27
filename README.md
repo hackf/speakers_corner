@@ -2,7 +2,7 @@
 
 Speaker's Corner Project
 
-** Note: There's going to be a lot of commits. I'm developing this via a very screwy wifi dongle.**
+*** Note: There's going to be a lot of commits. I'm developing this via a very screwy wifi dongle.***
 
 
 ### Important Information ###
@@ -12,6 +12,8 @@ Speaker's Corner Project
 * Instruction text is loaded from images/inst.txt
 * Images are resized to fit within 128x128
 * Do not put too many images in place, or they won't center properly.
+* Video recordings go in recordings/
+* Video recordings are given a timestamp in filename
 
 ### What is this repository for? ###
 
