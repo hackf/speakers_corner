@@ -4,6 +4,15 @@ Speaker's Corner Project
 
 ** Note: There's going to be a lot of commits. I'm developing this via a very screwy wifi dongle.**
 
+
+### Important Information ###
+
+* Images are stored in images/
+* The program looks for *.jpg
+* Instruction text is loaded from images/inst.txt
+* Images are resized to fit within 128x128
+* Do not put too many images in place, or they won't center properly.
+
 ### What is this repository for? ###
 
 * Quick summary
