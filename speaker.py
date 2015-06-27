@@ -118,11 +118,13 @@ def camerate(s) :
     :return:
     """
     if s==1 :
+        root.attributes("-fullscreen", False)
         root.withdraw()
         camera.start_preview()
     elif s==0 :
         camera.stop_preview()
         root.deiconify()
+        root.attributes("-fullscreen", False)
 
 
 
