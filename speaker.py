@@ -5,6 +5,7 @@ from PIL import ImageTk, Image
 import glob
 import tkFont
 import re
+import picamera
 
 size = 128, 128  # Size of images to display
 
@@ -102,6 +103,14 @@ def quitter():
     button = Button(frame3, text="QUIT", fg="red", command=frame.quit)
     button.pack(side=BOTTOM)
 
+def setup_camera():
+    """
+    Configure the camera and bind things.
+    :return:
+    """
+    camera = picamera.PiCamera()
+    root.after(2000, camera.start_preview)
+    root.after(3000, camera.stop_preview)
 
 if __name__ == '__main__':
     root = Tk()
