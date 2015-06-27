@@ -1,1 +1,2 @@
-Welcome to Speaker's Corner!\nPress button to begin recording!
+Welcome to Speaker's Corner!
+Press button to begin recording!
