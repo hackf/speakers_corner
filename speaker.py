@@ -22,9 +22,8 @@ def parsegeom(geometry):
     :param geometry:
     :return:
     """
-    #print(geometry)
     m = re.match("(\d+)x(\d+)([-+]\d+)[-+]+\d+", geometry)
-    # print(m)
+    print(m)
     if not m:
         raise ValueError("failed to parse geometry string")
     return map(int, m.groups())
@@ -120,4 +119,6 @@ if __name__ == '__main__':
     if True:
         quitter()
 
-root.mainloop()
+    root.mainloop()
+
+
