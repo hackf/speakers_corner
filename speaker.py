@@ -123,8 +123,7 @@ def camerate(s) :
     elif s==0 :
         camera.stop_preview()
         root.deiconify()
-    else
-        print("What?!")
+
 
 
 if __name__ == '__main__':
