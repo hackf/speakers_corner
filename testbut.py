@@ -9,6 +9,13 @@ device = led.matrix()
 
 device.show_message("Hello World!", font=proportional(CP437_FONT))
 
+time.sleep(5)
+
+for x in reversed(range(90)):
+    device.show_message(str(x))
+    time.sleep(1)
+
+
 
 #GPIO.setmode(GPIO.BCM)
 #GPIO.setwarnings(False)
