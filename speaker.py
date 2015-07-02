@@ -133,8 +133,8 @@ def setup_camera():
 
     root.after(2000, camerate, 1)
     #root.after(3000, camerate, 0)
-    countdown()
-    camerate(0)
+    #countdown()
+    #camerate(0)
 
 def camerate(d) :
     """
@@ -145,6 +145,8 @@ def camerate(d) :
     if d==1 :
         camera.start_preview()
         camera.start_recording(genfilename(), format="h264")
+        countdown()
+        camerate(0)
     elif d==0 :
         camera.stop_recording()
         camera.stop_preview()
