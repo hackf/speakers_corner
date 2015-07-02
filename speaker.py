@@ -7,6 +7,8 @@ import tkFont
 import re
 import picamera
 import time
+import max7219.led as led  # For LED matrix display
+from max7219.font import proportional,CP437_FONT
 
 size = 128, 128  # Size of images to display
 
@@ -14,6 +16,25 @@ size = 128, 128  # Size of images to display
 
 
 # maxwidth = 5  # Sets the maximum number of columns if images in the window
+
+def countdown():
+    """
+    Implements countdown display on LED matrix
+
+    :return:
+    """
+    #Initialize display
+    device = led.matrix()
+
+    #Display message at beginning of recording.
+    device.show_message("Seconds left:", font=proportional(CP437_FONT))
+    time.sleep(1) # Wait for message to display
+
+    x=90 # Maximum length of video.
+    while x>0:
+        device.show_message(str(x))
+        x-=10
+        time.sleep(10)
 
 
 def parsegeom(geometry):
