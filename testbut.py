@@ -7,13 +7,16 @@ from max7219.font import proportional, CP437_FONT
 
 device = led.matrix()
 
-device.show_message("Hello World!", font=proportional(CP437_FONT))
+device.show_message("Seconds left:", font=proportional(CP437_FONT))
 
 time.sleep(5)
 
-for x in reversed(range(90)):
+x=90
+
+while x>0:
     device.show_message(str(x))
-    time.sleep(1)
+    x-= 10
+    time.sleep(10)
 
 
 
