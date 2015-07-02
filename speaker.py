@@ -132,7 +132,9 @@ def setup_camera():
     """
 
     root.after(2000, camerate, 1)
-    root.after(3000, camerate, 0)
+    #root.after(3000, camerate, 0)
+    countdown()
+    camerate(0)
 
 def camerate(d) :
     """
