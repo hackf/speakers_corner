@@ -154,7 +154,7 @@ def genfilename():
     Create filename for video.
     :return:
     """
-    timestr = "recordings/recording-"
+    timestr = "/home/pi/speakers-corner/recordings/recording-"
     timestr += time.strftime("%Y%m%d-%H%M%S")
     timestr += ".mov"
 
