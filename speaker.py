@@ -179,7 +179,7 @@ if __name__ == '__main__':
     show_pics()
     setup_camera()
 
-    root.after(10000, frame.quit)
+    root.after(91000, frame.quit)
 
     if False:
         quitter()
