@@ -156,7 +156,7 @@ def genfilename():
     """
     timestr = "recordings/recording-"
     timestr += time.strftime("%Y%m%d-%H%M%S")
-    timestr += ".avi"
+    timestr += ".mov"
 
     return timestr
 
