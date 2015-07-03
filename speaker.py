@@ -143,6 +143,7 @@ def camerate(d) :
     Handles camera things.
     :return:
     """
+    camera.exposure_mode="night" #Optimize for night-time exposures.
     print("Camerating...")
     if d==1 :
         camera.start_preview()
