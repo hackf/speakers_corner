@@ -144,7 +144,7 @@ def camerate(d) :
     print("Camerating...")
     if d==1 :
         camera.start_preview()
-        camera.start_recording(genfilename(), format="h264")
+        camera.start_recording(genfilename())
         countdown()
         camerate(0)
     elif d==0 :
@@ -158,7 +158,7 @@ def genfilename():
     """
     timestr = "/home/pi/speakers-corner/recordings/recording-"
     timestr += time.strftime("%Y%m%d-%H%M%S")
-    timestr += ".mov"
+    timestr += ".avi"
 
     return timestr
 
