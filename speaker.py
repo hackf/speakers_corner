@@ -33,6 +33,8 @@ def countdown():
     x=90 # Maximum length of video.
     while x>0:
         device.show_message(str(x))
+        print("Counting...")
+        print(x)
         x-=10
         time.sleep(10)
 
