@@ -188,7 +188,7 @@ if __name__ == '__main__':
     show_pics()
     setup_camera()
 
-    root.after(91000, frame.quit)
+    root.after(100000, frame.quit) # Delay before closing, dev use only
 
     if False:
         quitter()
