@@ -144,6 +144,10 @@ def camerate(d) :
     :return:
     """
     camera.exposure_mode="night" #Optimize for night-time exposures.
+
+    # Depends  on our orientation
+    camera.hflip=True
+    camera.vflip=True
     print("Camerating...")
     if d==1 :
         camera.start_preview()
