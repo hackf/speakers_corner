@@ -138,7 +138,7 @@ def setup_camera():
     #countdown()
     #camerate(0)
 
-def camerate() :
+def camerate():
     """
     Handles camera things.
     :return:
@@ -150,9 +150,11 @@ def camerate() :
     camera.vflip=True
 
     print("Camerating...")
-    camera.start_preview()
+    camera.start_preview() # Engages display of video on screen
     camera.start_recording(genfilename(),format="h264")
+
     countdown()
+
     camera.stop_recording()
     camera.stop_preview()
 
