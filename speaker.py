@@ -138,7 +138,7 @@ def setup_camera():
     #countdown()
     #camerate(0)
 
-def camerate(d) :
+def camerate() :
     """
     Handles camera things.
     :return:
@@ -148,6 +148,7 @@ def camerate(d) :
     # Depends  on our orientation
     camera.hflip=True
     camera.vflip=True
+
     print("Camerating...")
     camera.start_preview()
     camera.start_recording(genfilename(),format="h264")
