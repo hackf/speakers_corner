@@ -149,14 +149,11 @@ def camerate(d) :
     camera.hflip=True
     camera.vflip=True
     print("Camerating...")
-    if d==1 :
-        camera.start_preview()
-        camera.start_recording(genfilename(),format="h264")
-        countdown()
-        camerate(0)
-    elif d==0 :
-        camera.stop_recording()
-        camera.stop_preview()
+    camera.start_preview()
+    camera.start_recording(genfilename(),format="h264")
+    countdown()
+    camera.stop_recording()
+    camera.stop_preview()
 
 def genfilename():
     """
