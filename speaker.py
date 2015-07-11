@@ -107,7 +107,7 @@ def show_instructions():
     # inst = "Welcome to Speaker's Corner!\nPress button to begin recording!"
 
     with file("images/inst.txt") as f:
-        inst=f.read(100) # Maximum of 100 characters, more tends to fill the screen.
+        inst = f.read(100) # Maximum of 100 characters, more tends to fill the screen.
 
     # Create our own frame.
     frame2 = Frame(root, bg="blue")
@@ -115,7 +115,6 @@ def show_instructions():
     helv36 = tkFont.Font(family='Helvetica', size=36, weight="bold")
     label = Label(frame2, text=inst, bg="blue", font=helv36, pady=200, fg="red")
     label.pack()
-
 
 
 def setup_camera():
@@ -132,7 +131,7 @@ def camerate():
     Handles camera things.
     :return:
     """
-    camera.exposure_mode="night" #Optimize for night-time exposures.
+    camera.exposure_mode="night" # Optimize for night-time exposures.
 
     # Depends  on our orientation
     camera.hflip=True
