@@ -58,8 +58,8 @@ def show_pics():  # Load images and place on canvas.
     i = 1  # Track rightness
     label = []  # Our image labels
 
-    for file in glob.glob("images/*.jpg"):
-        image = Image.open(file)
+    for fname in glob.glob("images/*.jpg"):
+        image = Image.open(fname)
         image.thumbnail(size, Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
 
