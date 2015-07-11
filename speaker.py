@@ -117,15 +117,6 @@ def show_instructions():
     label.pack()
 
 
-def quitter():
-    """
-    Add quit button during development.
-    :return:
-    """
-    frame3 = Frame(root, bg="blue")
-    frame3.pack(fill=BOTH, expand=1, side=BOTTOM)
-    button = Button(frame3, text="QUIT", fg="red", command=frame.quit)
-    button.pack(side=BOTTOM)
 
 def setup_camera():
     """
@@ -134,9 +125,7 @@ def setup_camera():
     """
 
     root.after(2000, camerate, 1)
-    #root.after(3000, camerate, 0)
-    #countdown()
-    #camerate(0)
+
 
 def camerate():
     """
@@ -190,7 +179,5 @@ if __name__ == '__main__':
 
     root.after(100000, frame.quit) # Delay before closing, dev use only
 
-    if False:
-        quitter()
 
     root.mainloop()
