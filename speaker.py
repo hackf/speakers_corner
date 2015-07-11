@@ -19,7 +19,7 @@ size = 128, 128  # Size of images to display
 
 def countdown():
     """
-    Implements countdown display on LED matrix
+    Implements countdown display on LED matrix, and controls video length.
 
     :return:
     """
@@ -164,15 +164,18 @@ if __name__ == '__main__':
 
     # Initialize camera variable
     camera=picamera.PiCamera()
+
+    # Create root window
     root = Tk()
 
+    # Make full screen and hide the cursor
     root.attributes("-fullscreen", True)
     root.configure(cursor='none')
+
     show_instructions()
 
     frame = Frame(root, bg="blue")
     frame.pack(fill=BOTH, expand=1)
-    # root.bind("<Key-q>", frame.quit)
 
     show_pics()
     setup_camera()
