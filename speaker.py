@@ -165,12 +165,11 @@ def sponsor_background():
     :return:
     """
     im = glob.glob('images/*.jpg')
-    sized=[0,0]
+
     print im[1]
     image = Image.open(im[1])
     size=parsegeom(root.geometry())
-    sized[0]=size[0]
-    sized[1]=size[1]
+    sized=size[0],size[1]
     image.resize(sized, Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
 
