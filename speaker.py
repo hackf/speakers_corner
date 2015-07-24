@@ -9,6 +9,8 @@ import picamera
 import time
 import max7219.led as led  # For LED matrix display
 from max7219.font import proportional,CP437_FONT
+#import subprocess
+
 
 size = 128, 128  # Size of images to display
 
@@ -139,11 +141,11 @@ def camerate():
 
     print("Camerating...")
     camera.start_preview() # Engages display of video on screen
-    camera.start_recording(genfilename(),format="h264")
+    #camera.start_recording(genfilename(),format="h264")
 
     countdown()
 
-    camera.stop_recording()
+    #camera.stop_recording()
     camera.stop_preview()
 
 def genfilename():
