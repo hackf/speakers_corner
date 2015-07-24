@@ -177,9 +177,9 @@ if __name__ == '__main__':
     frame.pack(fill=BOTH, expand=1)
 
     show_pics()
-    setup_camera()
+    #setup_camera()
 
-    root.after(120000, frame.quit) # Delay before closing, dev use only
+    root.after(10000, frame.quit) # Delay before closing, dev use only
 
 
     root.mainloop()
