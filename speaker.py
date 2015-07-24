@@ -159,6 +159,20 @@ def camerate():
     pid.kill()
 
 
+def sponsor_background():
+    """
+    Set background image from sponsors.
+    :return:
+    """
+    im = glob.glob('images/*.jpg')
+    image = Image.open(im[0])
+    image.thumbnail(root.size, Image.ANTIALIAS)
+    tkimage = ImageTk.PhotoImage(image)
+
+    back = Label(root,image = tkimage)
+    back.place(x=0,y=0, relwidth=1,relheight=1)
+
+
 if __name__ == '__main__':
 
     # Initialize camera variable
@@ -170,6 +184,8 @@ if __name__ == '__main__':
     # Make full screen and hide the cursor
     root.attributes("-fullscreen", True)
     root.configure(cursor='none')
+
+    sponsor_background()
 
     show_instructions() # foo
 
