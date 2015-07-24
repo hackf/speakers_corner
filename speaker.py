@@ -187,10 +187,10 @@ if __name__ == '__main__':
 
     sponsor_background()
 
-    show_instructions() # foo
+    #show_instructions() # foo
 
-    frame = Frame(root)
-    frame.pack(fill=BOTH, expand=1)
+    #frame = Frame(root)
+    #frame.pack(fill=BOTH, expand=1)
 
     #show_pics()
     #setup_camera()
