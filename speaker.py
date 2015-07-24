@@ -189,7 +189,7 @@ if __name__ == '__main__':
 
     show_instructions() # foo
 
-    frame = Frame(root, bg="blue")
+    frame = Frame(root)
     frame.pack(fill=BOTH, expand=1)
 
     #show_pics()
