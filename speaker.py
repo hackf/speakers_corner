@@ -192,7 +192,7 @@ if __name__ == '__main__':
     frame = Frame(root, bg="blue")
     frame.pack(fill=BOTH, expand=1)
 
-    show_pics()
+    #show_pics()
     #setup_camera()
 
     root.after(10000, frame.quit) # Delay before closing, dev use only
