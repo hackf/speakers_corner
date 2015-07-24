@@ -167,7 +167,7 @@ def sponsor_background():
     im = glob.glob('images/*.jpg')
     print im[1]
     image = Image.open(im[1])
-    #image.thumbnail(parsegeom(root.geometry()), Image.ANTIALIAS)
+    image.resize(parsegeom(root.geometry()), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
 
     back = Label(frame,image = tkimage)
