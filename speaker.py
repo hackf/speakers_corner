@@ -160,6 +160,7 @@ def camerate():
     countdown()
     time.sleep(1)
     touch('/home/pi/speakers-corner/hooks/stop_record')
+    time.sleep(1)
     #root.after(200, pid.kill)
     pid.kill()
     #camera.stop_recording()
