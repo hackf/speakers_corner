@@ -153,11 +153,11 @@ def camerate():
     #camera.start_preview() # Engages display of video on screen
     #camera.start_recording(genfilename(),format="h264")
     pid = subprocess.Popen(['/home/pi/picam-1.3.0-binary/picam', '--alsadev', 'hw:1,0', '--preview'])
-    touch('/home/pi/picam-1.3.0-binary/hooks/start_record')
+    touch('./hooks/start_record')
 
     countdown()
 
-    touch('/home/pi/picam-1.3.0-binary/hooks/stop_record')
+    touch('./hooks/stop_record')
     root.after(200, pid.terminate)
     #camera.stop_recording()
     #camera.stop_preview()
