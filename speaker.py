@@ -159,19 +159,6 @@ def camerate():
     pid.kill()
 
 
-def genfilename():
-    """
-    Create filename for video.
-    :return:
-    """
-    timestr = "/home/pi/speakers-corner/recordings/recording-"
-    timestr += time.strftime("%Y%m%d-%H%M%S")
-    timestr += ".h264"
-
-    return timestr
-
-
-
 if __name__ == '__main__':
 
     # Initialize camera variable
