@@ -2,5 +2,5 @@
 
 # For running program during development. Not intended for production use.
 
-git pull
-python speaker.py
+git pull origin
+sudo python speaker.py
