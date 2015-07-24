@@ -158,7 +158,7 @@ def camerate():
     countdown()
 
     touch('/home/pi/speakers-corner/hooks/stop_record')
-    root.after(200, pid.terminate)
+    root.after(200, pid.kill)
     #camera.stop_recording()
     #camera.stop_preview()
 
