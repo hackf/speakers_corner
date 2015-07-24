@@ -143,28 +143,21 @@ def camerate():
     Handles camera things.
     :return:
     """
-    #camera.exposure_mode="night" # Optimize for night-time exposures.
-
-    # Depends  on our orientation
-    #camera.hflip=True
-    #camera.vflip=True
 
     print("Camerating...")
-    #camera.start_preview() # Engages display of video on screen
-    #camera.start_recording(genfilename(),format="h264")
+
+    # Start subprocess to record audio and video
     pid = subprocess.Popen(['/home/pi/picam-1.3.0-binary/picam', '--alsadev', 'hw:1,0', '--preview'])
     time.sleep(1)
-    #root.after(200, touch, './hooks/start_record')
+    # Send start_record command to subprocess
     touch('/home/pi/speakers-corner/hooks/start_record')
 
     countdown()
     time.sleep(1)
     touch('/home/pi/speakers-corner/hooks/stop_record')
     time.sleep(1)
-    #root.after(200, pid.kill)
     pid.kill()
-    #camera.stop_recording()
-    #camera.stop_preview()
+
 
 def genfilename():
     """
