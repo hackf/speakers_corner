@@ -148,7 +148,7 @@ def camerate():
 
     # Start subprocess to record audio and video
     pid = subprocess.Popen(['/home/pi/picam-1.3.0-binary/picam', '--alsadev', 'hw:1,0', '--preview'])
-    time.sleep(1)
+    time.sleep(2)
     # Send start_record command to subprocess
     touch('/home/pi/speakers-corner/hooks/start_record')
 
