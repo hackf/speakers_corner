@@ -5,11 +5,12 @@ from PIL import ImageTk, Image
 import glob
 import tkFont
 import re
-import picamera
+#import picamera
+import os
 import time
 import max7219.led as led  # For LED matrix display
 from max7219.font import proportional,CP437_FONT
-#import subprocess
+import subprocess
 
 
 size = 128, 128  # Size of images to display
@@ -127,26 +128,39 @@ def setup_camera():
 
     root.after(2000, camerate, 1)
 
+def touch(fname):
+    """
+    Creates an empty file
+    :param fname: Filename to create
+    :return:
+    """
+
+    with open(fname, 'a'):
+        os.utime(fname, None)
 
 def camerate():
     """
     Handles camera things.
     :return:
     """
-    camera.exposure_mode="night" # Optimize for night-time exposures.
+    #camera.exposure_mode="night" # Optimize for night-time exposures.
 
     # Depends  on our orientation
-    camera.hflip=True
-    camera.vflip=True
+    #camera.hflip=True
+    #camera.vflip=True
 
     print("Camerating...")
-    camera.start_preview() # Engages display of video on screen
+    #camera.start_preview() # Engages display of video on screen
     #camera.start_recording(genfilename(),format="h264")
+    pid = subprocess.Popen(["/home/pi/picam-1.3.0-binary/picam", "--alsadev hw:1,0 --preview"])
+    touch('/home/pi/picam-1.3.0-binary/hook/start_record')
 
     countdown()
 
+    touch('/home/pi/picam-1.3.0-binary/hook/stop_record')
+    after(200, pid.terminate)
     #camera.stop_recording()
-    camera.stop_preview()
+    #camera.stop_preview()
 
 def genfilename():
     """
@@ -164,7 +178,7 @@ def genfilename():
 if __name__ == '__main__':
 
     # Initialize camera variable
-    camera=picamera.PiCamera()
+    #camera=picamera.PiCamera()
 
     # Create root window
     root = Tk()
