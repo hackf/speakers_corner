@@ -193,7 +193,7 @@ if __name__ == '__main__':
 
     #show_instructions() # foo
 
-    frame = Frame(root)
+    frame = Frame(root,bg="")
     frame.pack(fill=BOTH, expand=1)
     sponsor_background()
     #show_pics()
