@@ -158,7 +158,7 @@ def camerate():
     countdown()
 
     touch('/home/pi/picam-1.3.0-binary/hooks/stop_record')
-    after(200, pid.terminate)
+    root.after(200, pid.terminate)
     #camera.stop_recording()
     #camera.stop_preview()
 
