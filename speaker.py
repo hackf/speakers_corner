@@ -171,7 +171,7 @@ if __name__ == '__main__':
     root.attributes("-fullscreen", True)
     root.configure(cursor='none')
 
-    show_instructions()
+    show_instructions() # foo
 
     frame = Frame(root, bg="blue")
     frame.pack(fill=BOTH, expand=1)
