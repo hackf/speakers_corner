@@ -170,6 +170,7 @@ def sponsor_background():
     image = Image.open(im[1])
     size=parsegeom(root.geometry())
     sized=size[0],size[1]
+    print sized
     image.resize(sized, Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
 
@@ -194,8 +195,8 @@ if __name__ == '__main__':
     #show_instructions() # foo
 
     frame = Frame(root,bg="")
-    frame.pack(fill=BOTH, expand=1)
     sponsor_background()
+    frame.pack(fill=BOTH, expand=1)
     #show_pics()
     #setup_camera()
 
