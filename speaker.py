@@ -174,7 +174,7 @@ def sponsor_background():
     tkimage = ImageTk.PhotoImage(image)
 
     back = Label(root,image = tkimage)
-    back.place(x=0,y=0, relwidth=1,relheight=1)
+    back.pack(fill=BOTH, expand=YES)
 
 
 if __name__ == '__main__':
