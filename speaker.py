@@ -169,7 +169,7 @@ def sponsor_background():
     image.thumbnail(parsegeom(root.geometry()), Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
 
-    back = Label(root,image = tkimage)
+    back = Label(frame,image = tkimage)
     back.place(x=0,y=0, relwidth=1,relheight=1)
 
 
@@ -185,17 +185,17 @@ if __name__ == '__main__':
     root.attributes("-fullscreen", True)
     root.configure(cursor='none')
 
-    sponsor_background()
+    #sponsor_background()
 
     #show_instructions() # foo
 
-    #frame = Frame(root)
-    #frame.pack(fill=BOTH, expand=1)
-
+    frame = Frame(root)
+    frame.pack(fill=BOTH, expand=1)
+    sponsor_background()
     #show_pics()
     #setup_camera()
 
-    root.after(10000, root.quit) # Delay before closing, dev use only
+    root.after(10000, frame.quit) # Delay before closing, dev use only
 
 
     root.mainloop()
