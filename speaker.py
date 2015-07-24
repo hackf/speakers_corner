@@ -165,6 +165,7 @@ def sponsor_background():
     :return:
     """
     im = glob.glob('images/*.jpg')
+    sized=[0,0]
     print im[1]
     image = Image.open(im[1])
     size=parsegeom(root.geometry())
