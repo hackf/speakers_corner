@@ -5,13 +5,11 @@ from PIL import ImageTk, Image
 import glob
 import tkFont
 import re
-#import picamera
 import os
 import time
 import max7219.led as led  # For LED matrix display
-from max7219.font import proportional,CP437_FONT
+from max7219.font import proportional, CP437_FONT
 import subprocess
-
 
 
 # TODO Add Raspberry pi camera and GPIO code
@@ -23,19 +21,19 @@ def countdown():
 
     :return:
     """
-    #Initialize display
+    # Initialize display
     device = led.matrix()
 
-    #Display message at beginning of recording.
+    # Display message at beginning of recording.
     device.show_message("Seconds left:", font=proportional(CP437_FONT))
-    time.sleep(1) # Wait for message to display
+    time.sleep(1)  # Wait for message to display
 
-    x=90 # Maximum length of video.
-    while x>0:
+    x = 90  # Maximum length of video.
+    while x > 0:
         device.show_message(str(x))
         print("Counting...")
         print(x)
-        x-=10
+        x -= 10
         time.sleep(10)
 
 
@@ -62,6 +60,7 @@ def setup_camera():
 
     root.after(2000, camerate)
 
+
 def touch(fname):
     """
     Creates an empty file
@@ -71,6 +70,7 @@ def touch(fname):
 
     with open(fname, 'a'):
         os.utime(fname, None)
+
 
 def camerate():
     """
@@ -98,13 +98,13 @@ def sponsor_background():
     Set background image from sponsors.
     :return:
     """
-    images=[]
+    images = []
 
     for im in glob.glob('images/*.jpg'):
         images.append(im)
 
-    #change_image(images)
-    root.after(5000,change_image,images)
+    # change_image(images)
+    root.after(5000, change_image, images)
 
 
 def change_image(im):
@@ -114,40 +114,39 @@ def change_image(im):
     :return:
     """
     global back
-    if not im: # We've exhausted images, start over
+    if not im:  # We've exhausted images, start over
         sponsor_background()
         return
 
-    fname=im.pop()
+    fname = im.pop()
     image = Image.open(fname)
-    size = parsegeom(root.geometry()) # Grab screen size
+    size = parsegeom(root.geometry())  # Grab screen size
     sized = size[0], size[1]
     print sized
-    image.thumbnail(sized, Image.ANTIALIAS) # Resize to fit screen
+    image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
     tkimage = ImageTk.PhotoImage(image)
     if back:
-        back.pack_forget() # Remove previous label
+        back.pack_forget()  # Remove previous label
     back = Label(root, image=tkimage)
     back.image = tkimage
     back.pack(fill=BOTH, expand=YES)
-    root.after(10000,change_image,im) # Make sure we run to swap the image again.
+    root.after(10000, change_image, im)  # Make sure we run to swap the image again.
 
 
 if __name__ == '__main__':
-
     # Create root window
     root = Tk()
-    back=None
+    back = None
 
     # Make full screen and hide the cursor
     root.attributes("-fullscreen", True)
     root.configure(cursor='none')
 
     # Start changing the sponsor background image
-    root.after(500,sponsor_background)
+    root.after(500, sponsor_background)
 
     setup_camera()
 
-    root.after(130000, root.quit) # Delay before closing, dev use only
+    root.after(130000, root.quit)  # Delay before closing, dev use only
 
     root.mainloop()
