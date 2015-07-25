@@ -3,7 +3,6 @@ __author__ = 'wackyvorlon'
 from Tkinter import *
 from PIL import ImageTk, Image
 import glob
-import tkFont
 import re
 import os
 import time
