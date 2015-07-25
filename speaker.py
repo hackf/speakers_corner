@@ -13,7 +13,6 @@ from max7219.font import proportional,CP437_FONT
 import subprocess
 
 
-size = 128, 128  # Size of images to display
 
 # TODO Add Raspberry pi camera and GPIO code
 
@@ -55,10 +54,6 @@ def parsegeom(geometry):
     if not m:
         raise ValueError("failed to parse geometry string")
     return map(int, m.groups())
-
-
-
-
 
 
 
