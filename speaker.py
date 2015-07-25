@@ -185,7 +185,7 @@ def change_image(im):
     print sized
     image.thumbnail(sized, Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
-    back.pack_forget() # Remove previous label
+    root.pack_forget() # Remove previous label
     back = Label(root, image=tkimage)
     back.image = tkimage
     # back.pack(fill=BOTH, expand=YES)
