@@ -201,7 +201,7 @@ if __name__ == '__main__':
     #frame.pack(fill=BOTH, expand=YES)
     #show_pics()
     #setup_camera()
-    sponsor_background()
+    #sponsor_background()
 
     root.after(30000, root.quit) # Delay before closing, dev use only
 
