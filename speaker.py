@@ -174,7 +174,8 @@ def sponsor_background():
     #image.thumbnail(sized, Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
 
-    back = Label(root,image = tkimage,bg="blue")
+    back = Label(root,image = tkimage)
+    back.image=tkimage
     #back.pack(fill=BOTH, expand=YES)
     back.place(x=0,y=0)
 
