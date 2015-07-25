@@ -202,6 +202,7 @@ if __name__ == '__main__':
 
     # Create root window
     root = Tk()
+    back=None
 
     # Make full screen and hide the cursor
     root.attributes("-fullscreen", True)
