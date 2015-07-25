@@ -148,7 +148,7 @@ if __name__ == '__main__':
 
     root.after(500,sponsor_background)
 
-    #setup_camera()
+    setup_camera()
 
 
     root.after(130000, root.quit) # Delay before closing, dev use only
