@@ -174,7 +174,7 @@ def sponsor_background():
     #image.thumbnail(sized, Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
 
-    back = Label(frame,image = tkimage,bg="blue")
+    back = Label(root,image = tkimage,bg="blue")
     back.pack(fill=BOTH, expand=YES)
 
 
@@ -194,14 +194,14 @@ if __name__ == '__main__':
 
     #show_instructions() # foo
 
-    frame = Frame(root)
+    #frame = Frame(root)
     #root.after(500,sponsor_background)
-    frame.pack(fill=BOTH, expand=YES)
+    #frame.pack(fill=BOTH, expand=YES)
     #show_pics()
     #setup_camera()
     sponsor_background()
 
-    root.after(30000, frame.quit) # Delay before closing, dev use only
+    root.after(30000, root.quit) # Delay before closing, dev use only
 
 
     root.mainloop()
