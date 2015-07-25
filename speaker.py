@@ -200,7 +200,7 @@ if __name__ == '__main__':
     #show_pics()
     #setup_camera()
 
-    root.after(20000, frame.quit) # Delay before closing, dev use only
+    root.after(30000, frame.quit) # Delay before closing, dev use only
 
 
     root.mainloop()
