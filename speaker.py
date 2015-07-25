@@ -164,20 +164,32 @@ def sponsor_background():
     Set background image from sponsors.
     :return:
     """
-    im = glob.glob('images/*.jpg')
+    images=[]
 
-    print im[1]
-    image = Image.open(im[1])
-    size=parsegeom(root.geometry())
-    sized=size[0],size[1]
+    for im in glob.glob('images/*.jpg'):
+        images.append(im)
+
+    #change_image(images)
+    root.after(10000,change_image,images)
+
+
+def change_image(im):
+    if not im: # We've exhausted images, start over
+        sponsor_background()
+        return
+
+    fname=im.pop()
+    image = Image.open(fname)
+    size = parsegeom(root.geometry())
+    sized = size[0], size[1]
     print sized
     image.thumbnail(sized, Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
-
-    back = Label(root,image = tkimage)
-    back.image=tkimage
-    #back.pack(fill=BOTH, expand=YES)
-    back.place(x=0,y=0)
+    back = Label(root, image=tkimage)
+    back.image = tkimage
+    # back.pack(fill=BOTH, expand=YES)
+    back.place(x=0, y=0)
+    root.after(10000,change_image,im)
 
 
 if __name__ == '__main__':
@@ -201,7 +213,7 @@ if __name__ == '__main__':
     #frame.pack(fill=BOTH, expand=YES)
     #show_pics()
     #setup_camera()
-    #sponsor_background()
+
 
     root.after(30000, root.quit) # Delay before closing, dev use only
 
