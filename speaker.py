@@ -171,7 +171,7 @@ def sponsor_background():
     size=parsegeom(root.geometry())
     sized=size[0],size[1]
     print sized
-    #image.thumbnail(sized, Image.ANTIALIAS)
+    image.thumbnail(sized, Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
 
     back = Label(root,image = tkimage)
@@ -197,7 +197,7 @@ if __name__ == '__main__':
     #show_instructions() # foo
 
     #frame = Frame(root)
-    #root.after(500,sponsor_background)
+    root.after(500,sponsor_background)
     #frame.pack(fill=BOTH, expand=YES)
     #show_pics()
     #setup_camera()
