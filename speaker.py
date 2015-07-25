@@ -194,9 +194,9 @@ if __name__ == '__main__':
 
     #show_instructions() # foo
 
-    frame = Frame(root,bg="")
+    frame = Frame(root)
     #root.after(500,sponsor_background)
-    frame.pack(fill=BOTH, expand=1)
+    frame.pack(fill=BOTH, expand=YES)
     #show_pics()
     #setup_camera()
     sponsor_background()
