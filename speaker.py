@@ -170,7 +170,7 @@ def sponsor_background():
         images.append(im)
 
     #change_image(images)
-    root.after(10000,change_image,images)
+    root.after(5000,change_image,images)
 
 
 def change_image(im):
@@ -185,6 +185,7 @@ def change_image(im):
     print sized
     image.thumbnail(sized, Image.ANTIALIAS)
     tkimage = ImageTk.PhotoImage(image)
+    back.pack_forget() # Remove previous label
     back = Label(root, image=tkimage)
     back.image = tkimage
     # back.pack(fill=BOTH, expand=YES)
