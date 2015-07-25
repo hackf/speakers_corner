@@ -17,8 +17,6 @@ import subprocess
 # TODO Add Raspberry pi camera and GPIO code
 
 
-# maxwidth = 5  # Sets the maximum number of columns if images in the window
-
 def countdown():
     """
     Implements countdown display on LED matrix, and controls video length.
@@ -54,9 +52,6 @@ def parsegeom(geometry):
     if not m:
         raise ValueError("failed to parse geometry string")
     return map(int, m.groups())
-
-
-
 
 
 def setup_camera():
@@ -113,6 +108,11 @@ def sponsor_background():
 
 
 def change_image(im):
+    """
+    Changes background image periodically.
+    :param im: list of image filenames
+    :return:
+    """
     global back
     if not im: # We've exhausted images, start over
         sponsor_background()
@@ -120,7 +120,7 @@ def change_image(im):
 
     fname=im.pop()
     image = Image.open(fname)
-    size = parsegeom(root.geometry())
+    size = parsegeom(root.geometry()) # Grab screen size
     sized = size[0], size[1]
     print sized
     image.thumbnail(sized, Image.ANTIALIAS) # Resize to fit screen
@@ -130,13 +130,10 @@ def change_image(im):
     back = Label(root, image=tkimage)
     back.image = tkimage
     back.pack(fill=BOTH, expand=YES)
-    root.after(10000,change_image,im)
+    root.after(10000,change_image,im) # Make sure we run to swap the image again.
 
 
 if __name__ == '__main__':
-
-    # Initialize camera variable
-    #camera=picamera.PiCamera()
 
     # Create root window
     root = Tk()
@@ -146,12 +143,11 @@ if __name__ == '__main__':
     root.attributes("-fullscreen", True)
     root.configure(cursor='none')
 
+    # Start changing the sponsor background image
     root.after(500,sponsor_background)
 
     setup_camera()
 
-
     root.after(130000, root.quit) # Delay before closing, dev use only
-
 
     root.mainloop()
