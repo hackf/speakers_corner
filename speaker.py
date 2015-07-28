@@ -124,7 +124,7 @@ def setup_label():
     back = Label(root, image=tkimage)
     back.image = tkimage
     back.pack(fill=BOTH, expand=YES)
-    sponsor_background(im, back)
+    sponsor_background(images, back)
 
 
 def checkbutt():
