@@ -2,6 +2,7 @@ __author__ = 'wackyvorlon'
 
 from Tkinter import *
 from PIL import ImageTk, Image
+import RPi.GPIO as GPIO
 import glob
 import re
 import os
@@ -57,7 +58,8 @@ def setup_camera():
     :return:
     """
 
-    root.after(2000, camerate)
+    #root.after(2000, camerate)
+    root.after(100,checkbutt)
 
 
 def touch(fname):
@@ -105,6 +107,18 @@ def sponsor_background():
     # change_image(images)
     root.after(5000, change_image, images)
 
+def checkbutt():
+    """
+    Check button state.
+    :return:
+    """
+    if (GPIO.input(button)):
+        print "Button pressed!"
+        camerate()
+
+    root.after(100,checkbutt)
+
+
 
 def change_image(im):
     """
@@ -133,6 +147,14 @@ def change_image(im):
 
 
 if __name__ == '__main__':
+
+    # Configure GPIO
+    button = 17
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(button,GPIO.IN)
+    #root.after(100,checkbutt)
+
     # Create root window
     root = Tk()
     back = None
@@ -146,6 +168,6 @@ if __name__ == '__main__':
 
     setup_camera()
 
-    root.after(130000, root.quit)  # Delay before closing, dev use only
+    #root.after(130000, root.quit)  # Delay before closing, dev use only
 
     root.mainloop()
