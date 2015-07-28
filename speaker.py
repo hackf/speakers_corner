@@ -104,8 +104,21 @@ def sponsor_background():
     for im in glob.glob('images/*.jpg'):
         images.append(im)
 
-    # change_image(images)
-    root.after(5000, change_image, images)
+    # Has the label been created yet?
+    if not back:
+        fname = im.pop()
+        image = Image.open(fname)
+        size = parsegeom(root.geometry())  # Grab screen size
+        sized = size[0], size[1]
+        print sized
+        image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
+        tkimage = ImageTk.PhotoImage(image)
+
+        back = Label(root, image=tkimage)
+        back.image = tkimage
+        back.pack(fill=BOTH, expand=YES)
+
+    root.after(5000, change_image, images) # Schedule image updating.
 
 def checkbutt():
     """
@@ -138,11 +151,9 @@ def change_image(im):
     print sized
     image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
     tkimage = ImageTk.PhotoImage(image)
-    if back:
-        back.pack_forget()  # Remove previous label
-    back = Label(root, image=tkimage)
+
+    back.configure(image = tkimage)
     back.image = tkimage
-    back.pack(fill=BOTH, expand=YES)
     root.after(10000, change_image, im)  # Make sure we run to swap the image again.
 
 
@@ -168,6 +179,6 @@ if __name__ == '__main__':
 
     setup_camera()
 
-    #root.after(130000, root.quit)  # Delay before closing, dev use only
+    root.after(130000, root.quit)  # Delay before closing, dev use only
 
     root.mainloop()
