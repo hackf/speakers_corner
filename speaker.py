@@ -58,8 +58,8 @@ def setup_camera():
     :return:
     """
 
-    #root.after(2000, camerate)
-    root.after(100,checkbutt)
+    # root.after(2000, camerate)
+    root.after(100, checkbutt)
 
 
 def touch(fname):
@@ -94,31 +94,38 @@ def camerate():
     pid.kill()
 
 
-def sponsor_background():
+def sponsor_background(images, lbl):
     """
     Set background image from sponsors.
     :return:
     """
+    # images = []
+
+    if not images:
+        for im in glob.glob('images/*.jpg'):
+            images.append(im)
+
+    root.after(5000, change_image, images, lbl)  # Schedule image updating.
+
+
+def setup_label():
     images = []
 
     for im in glob.glob('images/*.jpg'):
         images.append(im)
 
-    # Has the label been created yet?
-    if not back:
-        fname = im.pop()
-        image = Image.open(fname)
-        size = parsegeom(root.geometry())  # Grab screen size
-        sized = size[0], size[1]
-        print sized
-        image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
-        tkimage = ImageTk.PhotoImage(image)
+    fname = images.pop()
+    image = Image.open(fname)
+    size = parsegeom(root.geometry())  # Grab screen size
+    sized = size[0], size[1]
+    print sized
+    image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
+    tkimage = ImageTk.PhotoImage(image)
+    back = Label(root, image=tkimage)
+    back.image = tkimage
+    back.pack(fill=BOTH, expand=YES)
+    sponsor_background(im, back)
 
-        back = Label(root, image=tkimage)
-        back.image = tkimage
-        back.pack(fill=BOTH, expand=YES)
-
-    root.after(5000, change_image, images) # Schedule image updating.
 
 def checkbutt():
     """
@@ -129,17 +136,16 @@ def checkbutt():
         print "Button pressed!"
         camerate()
 
-    root.after(100,checkbutt)
+    root.after(100, checkbutt)
 
 
-
-def change_image(im):
+def change_image(im, lbl):
     """
     Changes background image periodically.
     :param im: list of image filenames
     :return:
     """
-    global back
+    # global back
     if not im:  # We've exhausted images, start over
         sponsor_background()
         return
@@ -152,32 +158,32 @@ def change_image(im):
     image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
     tkimage = ImageTk.PhotoImage(image)
 
-    back.configure(image = tkimage)
-    back.image = tkimage
-    root.after(10000, change_image, im)  # Make sure we run to swap the image again.
+    lbl.configure(image=tkimage)
+    lbl.image = tkimage
+    root.after(10000, change_image, im, lbl)  # Make sure we run to swap the image again.
 
 
 if __name__ == '__main__':
-
     # Configure GPIO
     button = 17
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
-    GPIO.setup(button,GPIO.IN)
-    #root.after(100,checkbutt)
+    GPIO.setup(button, GPIO.IN)
+    # root.after(100,checkbutt)
 
     # Create root window
     root = Tk()
-    back = None
+    # back = None
 
     # Make full screen and hide the cursor
     root.attributes("-fullscreen", True)
     root.configure(cursor='none')
 
     # Start changing the sponsor background image
-    root.after(500, sponsor_background)
+    root.after(500, setup_label)
 
     setup_camera()
+
 
     root.after(130000, root.quit)  # Delay before closing, dev use only
 
