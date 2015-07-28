@@ -147,7 +147,7 @@ def change_image(im, lbl):
     """
     # global back
     if not im:  # We've exhausted images, start over
-        sponsor_background()
+        sponsor_background(im,lbl)
         return
 
     fname = im.pop()
