@@ -2,23 +2,18 @@ __author__ = 'wackyvorlon'
 
 from Tkinter import *
 from PIL import ImageTk, Image
+import RPi.GPIO as GPIO
 import glob
-import tkFont
 import re
-#import picamera
 import os
 import time
 import max7219.led as led  # For LED matrix display
-from max7219.font import proportional,CP437_FONT
+from max7219.font import proportional, CP437_FONT
 import subprocess
 
 
-size = 128, 128  # Size of images to display
-
 # TODO Add Raspberry pi camera and GPIO code
 
-
-# maxwidth = 5  # Sets the maximum number of columns if images in the window
 
 def countdown():
     """
@@ -26,19 +21,19 @@ def countdown():
 
     :return:
     """
-    #Initialize display
+    # Initialize display
     device = led.matrix()
 
-    #Display message at beginning of recording.
+    # Display message at beginning of recording.
     device.show_message("Seconds left:", font=proportional(CP437_FONT))
-    time.sleep(1) # Wait for message to display
+    time.sleep(1)  # Wait for message to display
 
-    x=90 # Maximum length of video.
-    while x>0:
+    x = 90  # Maximum length of video.
+    while x > 0:
         device.show_message(str(x))
         print("Counting...")
         print(x)
-        x-=10
+        x -= 10
         time.sleep(10)
 
 
@@ -57,76 +52,15 @@ def parsegeom(geometry):
     return map(int, m.groups())
 
 
-def show_pics():  # Load images and place on canvas.
-    i = 1  # Track rightness
-    label = []  # Our image labels
-
-    for fname in glob.glob("images/*.jpg"):
-        image = Image.open(fname)
-        image.thumbnail(size, Image.ANTIALIAS)
-        photo = ImageTk.PhotoImage(image)
-
-        label.append(Label(frame, image=photo, bg="blue"))
-        label[i - 1].image = photo
-        label[i - 1].grid(row=0, column=i)
-        i += 1
-
-    root.after(750, widther, label)  # Using Tkinter means that width numbers are 0 until
-                                     # screen is updated. So we wait 750ms.
-
-
-def widther(label):
-    """
-    Adds a dummy label to centre images.
-    :param label:
-    :return:
-    """
-
-    # Padding hack
-    # Find out how wide the labels are
-    q = 0
-    for widthulate in label:
-        q += widthulate.winfo_width()
-
-    # Grab window dimensions
-    windowsize = parsegeom(root.geometry())
-    width = windowsize[0]
-
-    # Calculate requisite padding
-    padding = (width - q) / 4  # Number found through experimentation. I have no idea why it's 4.
-    padding = abs(padding)     # In case too many images are in file, stop padding from going negative
-                               # and killing the program.
-
-    dummy = Label(frame, text=" ", bg="blue")
-    dummy.grid(row=0, column=0, padx=padding)
-
-
-def show_instructions():
-    """
-    Displays the instruction label.
-
-    :return:
-    """
-    # inst = "Welcome to Speaker's Corner!\nPress button to begin recording!"
-
-    with file("images/inst.txt") as f:
-        inst = f.read(100) # Maximum of 100 characters, more tends to fill the screen.
-
-    # Create our own frame.
-    frame2 = Frame(root, bg="blue")
-    frame2.pack(side=TOP, fill=BOTH, expand=1)
-    helv36 = tkFont.Font(family='Helvetica', size=36, weight="bold")
-    label = Label(frame2, text=inst, bg="blue", font=helv36, pady=200, fg="red")
-    label.pack()
-
-
 def setup_camera():
     """
     Configure the camera and bind things.
     :return:
     """
 
-    root.after(2000, camerate)
+    #root.after(2000, camerate)
+    root.after(100,checkbutt)
+
 
 def touch(fname):
     """
@@ -137,6 +71,7 @@ def touch(fname):
 
     with open(fname, 'a'):
         os.utime(fname, None)
+
 
 def camerate():
     """
@@ -159,27 +94,80 @@ def camerate():
     pid.kill()
 
 
+def sponsor_background():
+    """
+    Set background image from sponsors.
+    :return:
+    """
+    images = []
+
+    for im in glob.glob('images/*.jpg'):
+        images.append(im)
+
+    # change_image(images)
+    root.after(5000, change_image, images)
+
+def checkbutt():
+    """
+    Check button state.
+    :return:
+    """
+    if (GPIO.input(button)):
+        print "Button pressed!"
+        camerate()
+
+    root.after(100,checkbutt)
+
+
+
+def change_image(im):
+    """
+    Changes background image periodically.
+    :param im: list of image filenames
+    :return:
+    """
+    global back
+    if not im:  # We've exhausted images, start over
+        sponsor_background()
+        return
+
+    fname = im.pop()
+    image = Image.open(fname)
+    size = parsegeom(root.geometry())  # Grab screen size
+    sized = size[0], size[1]
+    print sized
+    image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
+    tkimage = ImageTk.PhotoImage(image)
+    if back:
+        back.pack_forget()  # Remove previous label
+    back = Label(root, image=tkimage)
+    back.image = tkimage
+    back.pack(fill=BOTH, expand=YES)
+    root.after(10000, change_image, im)  # Make sure we run to swap the image again.
+
+
 if __name__ == '__main__':
 
-    # Initialize camera variable
-    #camera=picamera.PiCamera()
+    # Configure GPIO
+    button = 17
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(button,GPIO.IN)
+    #root.after(100,checkbutt)
 
     # Create root window
     root = Tk()
+    back = None
 
     # Make full screen and hide the cursor
     root.attributes("-fullscreen", True)
     root.configure(cursor='none')
 
-    show_instructions() # foo
+    # Start changing the sponsor background image
+    root.after(500, sponsor_background)
 
-    frame = Frame(root, bg="blue")
-    frame.pack(fill=BOTH, expand=1)
+    setup_camera()
 
-    show_pics()
-    #setup_camera()
-
-    root.after(10000, frame.quit) # Delay before closing, dev use only
-
+    #root.after(130000, root.quit)  # Delay before closing, dev use only
 
     root.mainloop()
