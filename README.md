@@ -10,7 +10,8 @@ Speaker's Corner Project
 * Images are stored in images/
 * The program looks for *.jpg
 * Instruction text is loaded from images/inst.txt
-* Images are resized to fit within 128x128
+* Images are resized to fit within the screen.
+* NOTE: Will not change aspect ratio! To avoid grey borders, ensure that aspect ratio of image is the same as screen.
 * Do not put too many images in place, or they won't center properly.
 * Video recordings go in rec/
 * Video recordings are given a timestamp in filename
