@@ -82,7 +82,15 @@ def camerate():
     print("Camerating...")
 
     # Start subprocess to record audio and video
-    pid = subprocess.Popen(['/home/pi/picam-1.3.0-binary/picam', '--alsadev', 'hw:1,0', '--preview', '--volume', '2'])
+    pid = subprocess.Popen([
+        '/home/pi/picam-1.3.0-binary/picam',
+        '--alsadev',
+        'hw:1,0',
+        '--preview',
+        '--volume',
+        '2'
+    ])
+
     time.sleep(2)
     # Send start_record command to subprocess
     touch('/home/pi/speakers-corner/hooks/start_record')
@@ -94,18 +102,48 @@ def camerate():
     pid.kill()
 
 
+def remux_video_files():
+
+    ts_file_dir = '/home/pi/speakers_corner/rec/'
+
+    (_, _, ts_files) = os.walk(ts_file_dir).next()
+
+    ts_file_name = ts_files[0].split('/')[-1]
+
+    print('file name: ' + ts_file_name)
+
+    ts_file_path = "{}{}".format(ts_file_dir, ts_file_name)
+    output_MP4_path = "{}{}".format(tsfile_path.split('.')[0], '.mp4')
+
+    print('full file path: ' + ts_file_path)
+    print('new file name: ' + output_MP4_path)
+
+    # pid =
+    #subprocess.Popen([
+        #'ffmpeg',
+        #'-i',
+        #ts_file_path,
+        #'-acodec',
+        #'copy',
+        #'-vcodec',
+        #'copy',
+        #output_MP4_path
+    #])
+
+    # pid.kill()
+
+
 def sponsor_background(images, lbl):
     """
     Set background image from sponsors.
     :return:
     """
-    # images = []
-
     if not images:
         for im in glob.glob('images/*.jpg'):
             images.append(im)
 
-    root.after(5000, change_image, images, lbl)  # Schedule image updating.
+    # Schedule image updating.
+    root.after(5000, change_image, images, lbl)
 
 
 def setup_label():
@@ -147,7 +185,7 @@ def change_image(im, lbl):
     """
     # global back
     if not im:  # We've exhausted images, start over
-        sponsor_background(im,lbl)
+        sponsor_background(im, lbl)
         return
 
     fname = im.pop()
@@ -160,12 +198,13 @@ def change_image(im, lbl):
 
     lbl.configure(image=tkimage)
     lbl.image = tkimage
-    root.after(10000, change_image, im, lbl)  # Make sure we run to swap the image again.
+    # Make sure we run to swap the image again.
+    root.after(10000, change_image, im, lbl)
 
 
 if __name__ == '__main__':
     # Configure GPIO
-    button = 17
+    button = 17  # BCM (Broadcom SOC challen) GPIO 17 is pin #11 on board
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(button, GPIO.IN)
@@ -184,7 +223,6 @@ if __name__ == '__main__':
 
     setup_camera()
 
-
-    #root.after(130000, root.quit)  # Delay before closing, dev use only
+    # root.after(130000, root.quit)  # Delay before closing, dev use only
 
     root.mainloop()

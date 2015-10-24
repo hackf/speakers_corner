@@ -16,6 +16,7 @@ Speaker's Corner Project
 * Video recordings go in rec/
 * Video recordings are given a timestamp in filename
 
+
 ### Setup ###
 
 * Put in ~/speakers-corner
@@ -29,6 +30,7 @@ Speaker's Corner Project
 * Version
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
+
 ### How do I get set up? ###
 
 * Summary of set up
@@ -38,11 +40,13 @@ Speaker's Corner Project
 * How to run tests
 * Deployment instructions
 
+
 ### Contribution guidelines ###
 
 * Writing tests
 * Code review
 * Other guidelines
+
 
 ### Who do I talk to? ###
 
