@@ -12,9 +12,6 @@ from max7219.font import proportional, CP437_FONT
 import subprocess
 
 
-# TODO Add Raspberry pi camera and GPIO code
-
-
 def countdown():
     """
     Implements countdown display on LED matrix, and controls video length.
@@ -104,31 +101,27 @@ def camerate():
 
 def remux_video_files():
 
-    ts_file_dir = '/home/pi/speakers_corner/rec/'
+    ts_file_dir = '/home/pi/speakers-corner/rec'
+    # ts_file_dir = '/Users/jeffszusz/projects/hackf/speakerscorner/rec'
 
     (_, _, ts_files) = os.walk(ts_file_dir).next()
 
-    ts_file_name = ts_files[0].split('/')[-1]
-
-    print('file name: ' + ts_file_name)
-
-    ts_file_path = "{}{}".format(ts_file_dir, ts_file_name)
-    output_MP4_path = "{}{}".format(tsfile_path.split('.')[0], '.mp4')
-
-    print('full file path: ' + ts_file_path)
-    print('new file name: ' + output_MP4_path)
+    ts_file_name = ts_files[-1]
+    ts_file_path = os.path.join(ts_file_dir, ts_file_name)
+    output_mpeg2_path = "{}{}".format(ts_file_path.split('.')[0], '.mpg')
+    print('output: ' + output_mpeg2_path)
 
     # pid =
-    #subprocess.Popen([
-        #'ffmpeg',
-        #'-i',
-        #ts_file_path,
-        #'-acodec',
-        #'copy',
-        #'-vcodec',
-        #'copy',
-        #output_MP4_path
-    #])
+    subprocess.Popen([
+        'ffmpeg',
+        '-i',
+        ts_file_path,
+        '-acodec',
+        'copy',
+        '-vcodec',
+        'copy',
+        output_mpeg2_path
+    ])
 
     # pid.kill()
 
