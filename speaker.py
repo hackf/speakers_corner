@@ -2,13 +2,13 @@ __author__ = 'wackyvorlon'
 
 from Tkinter import *
 from PIL import ImageTk, Image
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import glob
 import re
 import os
 import time
-#import max7219.led as led  # For LED matrix display
-#from max7219.font import proportional, CP437_FONT
+import max7219.led as led  # For LED matrix display
+from max7219.font import proportional, CP437_FONT
 import subprocess
 
 
@@ -120,9 +120,6 @@ def remux_latest_video_file():
         mpeg2_output_path
     ])
 
-# TODO remove
-test = remux_latest_video_file
-
 
 def sponsor_images():
     """
@@ -130,22 +127,18 @@ def sponsor_images():
     """
 
     while True:
-        for image in glob.glob('images/*.jpg'):
-            yield image
+        for fname in glob.glob('images/*.jpg'):
+            yield Image.open(fname)
 
 
 def start_sponsor_slideshow():
     images = sponsor_images()
-
-    label = Label(window, image=tkimage)
-    label.pack(fill=BOTH, expand=YES)
-
-    cycle_through_images(images, label)
+    cycle_through_images(images, None)
 
 
 def cycle_through_images(images, label):
 
-    image = Image.open(images.next())
+    image = images.next()
 
     size = parsegeometry(window.geometry())  # Grab screen size
     sized = size[0], size[1]
@@ -153,6 +146,10 @@ def cycle_through_images(images, label):
     image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
     tkimage = ImageTk.PhotoImage(image)
 
+    if not label:
+        label = Label(window, image=tkimage)
+
+    label.pack(fill=BOTH, expand=YES)
     label.configure(image=tkimage)
     label.image = tkimage
 
@@ -162,9 +159,9 @@ def cycle_through_images(images, label):
 if __name__ == '__main__':
 
     button = 17  # BCM (Broadcom SOC challen) GPIO 17 is pin #11 on board
-    #GPIO.setmode(GPIO.BCM)
-    #GPIO.setwarnings(False)
-    #GPIO.setup(button, GPIO.IN)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(button, GPIO.IN)
 
     window = Tk()
 
@@ -173,6 +170,6 @@ if __name__ == '__main__':
 
     window.after(500, start_sponsor_slideshow)
 
-    #poll_button()
+    poll_button()
 
     window.mainloop()
