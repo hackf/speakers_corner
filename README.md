@@ -20,9 +20,20 @@ Speaker's Corner Project
 ### Setup ###
 
 * Put in ~/speakers-corner
-* Copy runx.sh to /etc/init.d/
-* Run: sudo update-rc.d runx.sh defaults
+* Copy init.d/speaker_corner to /etc/init.d/
 
+### Dependencies ###
+
+system:
+- ffmpeg
+
+python:
+- RPIGPIO
+- Pillow (modern fill for PIL)
+- max7219 (for led matrix)
+
+binaries
+- picam
 
 ### What is this repository for? ###
 
