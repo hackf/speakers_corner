@@ -100,8 +100,8 @@ def remux_latest_video_file():
     in an MPEG-PS (Program Stream) container
     """
 
-    # ts_file_dir = '/home/pi/speakers-corner/rec'
-    ts_file_dir = '/Users/jeffszusz/projects/hackf/speakerscorner/rec'
+    ts_file_dir = '/home/pi/speakers-corner/rec'
+    #ts_file_dir = '/Users/jeffszusz/projects/hackf/speakerscorner/rec'
 
     (_, _, ts_files) = os.walk(ts_file_dir).next()
 
