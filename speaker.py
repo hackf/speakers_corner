@@ -2,39 +2,38 @@ __author__ = 'wackyvorlon'
 
 from Tkinter import *
 from PIL import ImageTk, Image
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import glob
 import re
 import os
 import time
-import max7219.led as led  # For LED matrix display
-from max7219.font import proportional, CP437_FONT
+#import max7219.led as led  # For LED matrix display
+#from max7219.font import proportional, CP437_FONT
 import subprocess
 
 
 def countdown():
     """
-    Implements countdown display on LED matrix, and controls video length.
+    Display countdown on LED matrix, updatingn in 10 second intervals
+    Determines video recording length
 
     :return:
     """
     # Initialize display
-    device = led.matrix()
+    matrix = led.matrix()
 
     # Display message at beginning of recording.
-    device.show_message("Seconds left:", font=proportional(CP437_FONT))
+    matrix.show_message("Seconds left:", font=proportional(CP437_FONT))
     time.sleep(1)  # Wait for message to display
 
-    x = 90  # Maximum length of video.
-    while x > 0:
-        device.show_message(str(x))
-        print("Counting...")
-        print(x)
-        x -= 10
+    time_remaining = 90  # Maximum length of video in seconds.
+    while time_remaining > 0:
+        matrix.show_message(str(time_remaining))
+        time_remaining -= 10
         time.sleep(10)
 
 
-def parsegeom(geometry):
+def parsegeometry(geometry):
     """
     Parses window geometry
     Code thanks to: http://effbot.org/tkinterbook/wm.htm
@@ -43,20 +42,9 @@ def parsegeom(geometry):
     :return:
     """
     m = re.match("(\d+)x(\d+)([-+]\d+)[-+]+\d+", geometry)
-    # print(m)
     if not m:
         raise ValueError("failed to parse geometry string")
     return map(int, m.groups())
-
-
-def setup_camera():
-    """
-    Configure the camera and bind things.
-    :return:
-    """
-
-    # root.after(2000, camerate)
-    root.after(100, checkbutt)
 
 
 def touch(fname):
@@ -70,14 +58,14 @@ def touch(fname):
         os.utime(fname, None)
 
 
-def camerate():
-    """
-    Handles camera things.
-    :return:
-    """
+def poll_button():
+    if (GPIO.input(button)):
+        begin_recording()
 
-    print("Camerating...")
+    window.after(100, poll_button)
 
+
+def begin_recording():
     # Start subprocess to record audio and video
     pid = subprocess.Popen([
         '/home/pi/picam-1.3.0-binary/picam',
@@ -89,29 +77,38 @@ def camerate():
     ])
 
     time.sleep(2)
-    # Send start_record command to subprocess
+
+    # use picam's start_record hook
     touch('/home/pi/speakers-corner/hooks/start_record')
 
     countdown()
+
     time.sleep(1)
+
+    # use picam's stop_record hook
     touch('/home/pi/speakers-corner/hooks/stop_record')
     time.sleep(2)
+
     pid.kill()
 
+    remux_latest_video_file()
 
-def remux_video_files():
 
-    ts_file_dir = '/home/pi/speakers-corner/rec'
-    # ts_file_dir = '/Users/jeffszusz/projects/hackf/speakerscorner/rec'
+def remux_latest_video_file():
+    """
+    Repackage the latest MPEG-TS (Transport Stream) file
+    in an MPEG-PS (Program Stream) container
+    """
+
+    # ts_file_dir = '/home/pi/speakers-corner/rec'
+    ts_file_dir = '/Users/jeffszusz/projects/hackf/speakerscorner/rec'
 
     (_, _, ts_files) = os.walk(ts_file_dir).next()
 
     ts_file_name = ts_files[-1]
     ts_file_path = os.path.join(ts_file_dir, ts_file_name)
-    output_mpeg2_path = "{}{}".format(ts_file_path.split('.')[0], '.mpg')
-    print('output: ' + output_mpeg2_path)
+    mpeg2_output_path = "{}{}".format(ts_file_path.split('.')[0], '.mpg')
 
-    # pid =
     subprocess.Popen([
         'ffmpeg',
         '-i',
@@ -120,102 +117,62 @@ def remux_video_files():
         'copy',
         '-vcodec',
         'copy',
-        output_mpeg2_path
+        mpeg2_output_path
     ])
 
-    # pid.kill()
+# TODO remove
+test = remux_latest_video_file
 
 
-def sponsor_background(images, lbl):
+def sponsor_images():
     """
-    Set background image from sponsors.
-    :return:
+    returns a generator, provides the next image in the sponsor slideshow
     """
-    if not images:
-        for im in glob.glob('images/*.jpg'):
-            images.append(im)
 
-    # Schedule image updating.
-    root.after(5000, change_image, images, lbl)
+    while True:
+        for image in glob.glob('images/*.jpg'):
+            yield image
 
 
-def setup_label():
-    images = []
+def start_sponsor_slideshow():
+    images = sponsor_images()
 
-    for im in glob.glob('images/*.jpg'):
-        images.append(im)
+    label = Label(window, image=tkimage)
+    label.pack(fill=BOTH, expand=YES)
 
-    fname = images.pop()
-    image = Image.open(fname)
-    size = parsegeom(root.geometry())  # Grab screen size
+    cycle_through_images(images, label)
+
+
+def cycle_through_images(images, label):
+
+    image = Image.open(images.next())
+
+    size = parsegeometry(window.geometry())  # Grab screen size
     sized = size[0], size[1]
-    print sized
-    image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
-    tkimage = ImageTk.PhotoImage(image)
-    back = Label(root, image=tkimage)
-    back.image = tkimage
-    back.pack(fill=BOTH, expand=YES)
-    sponsor_background(images, back)
 
-
-def checkbutt():
-    """
-    Check button state.
-    :return:
-    """
-    if (GPIO.input(button)):
-        print "Button pressed!"
-        camerate()
-
-    root.after(100, checkbutt)
-
-
-def change_image(im, lbl):
-    """
-    Changes background image periodically.
-    :param im: list of image filenames
-    :return:
-    """
-    # global back
-    if not im:  # We've exhausted images, start over
-        sponsor_background(im, lbl)
-        return
-
-    fname = im.pop()
-    image = Image.open(fname)
-    size = parsegeom(root.geometry())  # Grab screen size
-    sized = size[0], size[1]
-    print sized
     image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
     tkimage = ImageTk.PhotoImage(image)
 
-    lbl.configure(image=tkimage)
-    lbl.image = tkimage
-    # Make sure we run to swap the image again.
-    root.after(10000, change_image, im, lbl)
+    label.configure(image=tkimage)
+    label.image = tkimage
+
+    window.after(10000, cycle_through_images, images, label)
 
 
 if __name__ == '__main__':
-    # Configure GPIO
+
     button = 17  # BCM (Broadcom SOC challen) GPIO 17 is pin #11 on board
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
-    GPIO.setup(button, GPIO.IN)
-    # root.after(100,checkbutt)
+    #GPIO.setmode(GPIO.BCM)
+    #GPIO.setwarnings(False)
+    #GPIO.setup(button, GPIO.IN)
 
-    # Create root window
-    root = Tk()
-    # back = None
+    window = Tk()
 
-    # Make full screen and hide the cursor
-    root.attributes("-fullscreen", True)
-    root.configure(cursor='none')
+    window.attributes("-fullscreen", True)
+    window.configure(cursor='none')
 
-    # Start changing the sponsor background image
-    root.after(500, setup_label)
+    window.after(500, start_sponsor_slideshow)
 
-    setup_camera()
+    #poll_button()
 
-    # root.after(130000, root.quit)  # Delay before closing, dev use only
-
-    root.mainloop()
+    window.mainloop()
