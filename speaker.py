@@ -3,7 +3,7 @@
 from Tkinter import *
 from PIL import ImageTk, Image
 import RPi.GPIO as GPIO
-import picam
+import picamera
 import glob
 import re
 import os
@@ -67,7 +67,7 @@ def poll_button():
 
 
 def begin_recording():
-    camera = picam.PiCamera()
+    camera = picamera.PiCamera()
 
     camera.start_preview()
 
