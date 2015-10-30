@@ -2,21 +2,20 @@
 
 from Tkinter import *
 from PIL import ImageTk, Image
-import RPi.GPIO as GPIO
-import picamera
+#import RPi.GPIO as GPIO
+#import picamera
 import glob
 import re
 import os
 import time
-import max7219.led as led  # For LED matrix display
-from max7219.font import proportional, CP437_FONT
+#import max7219.led as led  # For LED matrix display
+#from max7219.font import proportional, CP437_FONT
 import subprocess
 
 # TODO this is janky, refactor
 button = 17  # BCM (Broadcom SOC challen) GPIO 17 is pin #11 on board
 window = Tk()
 
-window_size = None
 
 def countdown():
     """
@@ -42,15 +41,10 @@ def countdown():
 def parsegeometry(geometry):
     """
     Parses window geometry
-    Code thanks to: http://effbot.org/tkinterbook/wm.htm
-
-    :param geometry:
-    :return:
     """
-    m = re.match("(\d+)x(\d+)([-+]\d+)[-+]+\d+", geometry)
-    if not m:
-        raise ValueError("failed to parse geometry string")
-    return map(int, m.groups())
+
+    x, y = geometry.split('+')[0].split('x')
+    return (x, y)
 
 
 def touch(fname):
@@ -76,7 +70,7 @@ def begin_recording():
 
     camera.start_preview()
 
-    time.sleep(20000)
+    time.sleep(10000)
 
     camera.stop_preview()
 
@@ -154,9 +148,8 @@ def cycle_through_images(images, label):
 
     image = images.next()
 
-    if not window_size:
-        size = parsegeometry(window.geometry())  # Grab screen size
-        window_size = size[0], size[1]
+    size = parsegeometry(window.geometry())  # Grab screen size
+    window_size = size[0], size[1]
 
     image.thumbnail(window_size, Image.ANTIALIAS)  # Resize to fit screen
     tkimage = ImageTk.PhotoImage(image)
@@ -176,7 +169,6 @@ def main():
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(button, GPIO.IN)
-
 
     window.attributes("-fullscreen", True)
     window.configure(cursor='none')
