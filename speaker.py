@@ -12,8 +12,8 @@ import max7219.led as led  # For LED matrix display
 from max7219.font import proportional, CP437_FONT
 import subprocess
 
-global button
-global window
+button = 17  # BCM (Broadcom SOC challen) GPIO 17 is pin #11 on board
+window = Tk()
 
 
 def countdown():
@@ -170,12 +170,10 @@ def cycle_through_images(images, label):
 
 def main():
 
-    button = 17  # BCM (Broadcom SOC challen) GPIO 17 is pin #11 on board
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(button, GPIO.IN)
 
-    window = Tk()
 
     window.attributes("-fullscreen", True)
     window.configure(cursor='none')
