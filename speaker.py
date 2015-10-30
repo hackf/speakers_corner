@@ -12,6 +12,9 @@ import max7219.led as led  # For LED matrix display
 from max7219.font import proportional, CP437_FONT
 import subprocess
 
+global button
+global window
+
 
 def countdown():
     """
