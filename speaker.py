@@ -1,8 +1,9 @@
-__author__ = 'wackyvorlon'
+#  authors: wackyvorlon, jeffszusz, rtopliffe
 
 from Tkinter import *
 from PIL import ImageTk, Image
 import RPi.GPIO as GPIO
+import picam
 import glob
 import re
 import os
@@ -66,32 +67,40 @@ def poll_button():
 
 
 def begin_recording():
+    camera = picam.PiCamera()
+
+    camera.start_preview()
+
+    time.sleep(20000)
+
+    camera.stop_preview()
+
     # Start subprocess to record audio and video
-    pid = subprocess.Popen([
-        '/home/pi/picam-1.3.0-binary/picam',
-        '--alsadev',
-        'hw:1,0',
-        '--preview',
-        '--volume',
-        '2'
-    ])
+    #pid = subprocess.Popen([
+        #'/home/pi/picam-1.3.0-binary/picam',
+        #'--alsadev',
+        #'hw:1,0',
+        #'--preview',
+        #'--volume',
+        #'2'
+    #])
 
-    time.sleep(2)
+    #time.sleep(2)
 
-    # use picam's start_record hook
-    touch('/home/pi/speakers-corner/hooks/start_record')
+     #use picam's start_record hook
+    #touch('/home/pi/speakers-corner/hooks/start_record')
 
-    countdown()
+    #countdown()
 
-    time.sleep(1)
+    #time.sleep(1)
 
-    # use picam's stop_record hook
-    touch('/home/pi/speakers-corner/hooks/stop_record')
-    time.sleep(2)
+     #use picam's stop_record hook
+    #touch('/home/pi/speakers-corner/hooks/stop_record')
+    #time.sleep(2)
 
-    pid.kill()
+    #pid.kill()
 
-    remux_latest_video_file()
+    #remux_latest_video_file()
 
 
 def remux_latest_video_file():
