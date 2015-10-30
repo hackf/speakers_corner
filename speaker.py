@@ -12,9 +12,11 @@ import max7219.led as led  # For LED matrix display
 from max7219.font import proportional, CP437_FONT
 import subprocess
 
+# TODO this is janky, refactor
 button = 17  # BCM (Broadcom SOC challen) GPIO 17 is pin #11 on board
 window = Tk()
 
+window_size = None
 
 def countdown():
     """
@@ -152,10 +154,11 @@ def cycle_through_images(images, label):
 
     image = images.next()
 
-    size = parsegeometry(window.geometry())  # Grab screen size
-    sized = size[0], size[1]
+    if not size:
+        size = parsegeometry(window.geometry())  # Grab screen size
+        window_size = size[0], size[1]
 
-    image.thumbnail(sized, Image.ANTIALIAS)  # Resize to fit screen
+    image.thumbnail(window_size, Image.ANTIALIAS)  # Resize to fit screen
     tkimage = ImageTk.PhotoImage(image)
 
     if not label:
