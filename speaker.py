@@ -165,7 +165,7 @@ def cycle_through_images(images, label):
     window.after(10000, cycle_through_images, images, label)
 
 
-if __name__ == '__main__':
+def main():
 
     button = 17  # BCM (Broadcom SOC challen) GPIO 17 is pin #11 on board
     GPIO.setmode(GPIO.BCM)
@@ -182,3 +182,7 @@ if __name__ == '__main__':
     poll_button()
 
     window.mainloop()
+
+
+if __name__ == '__main__':
+    main()
