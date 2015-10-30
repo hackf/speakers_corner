@@ -154,7 +154,7 @@ def cycle_through_images(images, label):
 
     image = images.next()
 
-    if not size:
+    if not window_size:
         size = parsegeometry(window.geometry())  # Grab screen size
         window_size = size[0], size[1]
 
