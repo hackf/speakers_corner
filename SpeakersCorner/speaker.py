@@ -157,7 +157,7 @@ class SpeakersCorner():
 
         self.window.after(10000, self.cycle_through_images, images, label)
 
-    def main(self):
+    def start(self):
 
         self.window.after(500, self.start_sponsor_slideshow)
 
