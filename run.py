@@ -1,5 +1,5 @@
-from SpeakersCorner.speaker import main
-
+from SpeakersCorner import SpeakersCorner
 
 if __name__ == '__main__':
-    main()
+    speakersCorner = SpeakersCorner()
+    speakersCorner.main()
