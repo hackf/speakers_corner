@@ -20,8 +20,8 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-dir="/home/pi/speakers-corner"
-cmd="python speaker.py"
+dir="/home/pi"
+cmd="python run.py"
 user="root"
 
 #name=`speakers-corner $0`
