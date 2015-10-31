@@ -2,7 +2,7 @@
 
 from Tkinter import Tk, Label, BOTH, YES
 from PIL import ImageTk, Image
-from RPi import GPIO
+import RPi.GPIO as GPIO
 from max7219 import led  # For LED matrix display
 from max7219.font import proportional, CP437_FONT
 import picamera
