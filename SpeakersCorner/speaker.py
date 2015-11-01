@@ -68,7 +68,7 @@ class SpeakersCorner():
 
         camera.start_preview()
 
-        time.sleep(10000)
+        time.sleep(10)
 
         camera.stop_preview()
 

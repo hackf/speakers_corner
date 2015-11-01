@@ -4,6 +4,7 @@ requires = [
     'Pillow',
     'RPi.GPIO',
     'picamera',
+    'pygame',
 ]
 
 test_requires = [

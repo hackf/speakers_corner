@@ -1,2 +1,2 @@
-from speaker import SpeakersCorner
+from speaker_corner import SpeakersCorner
 __all__ = ['SpeakersCorner']

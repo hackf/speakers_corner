@@ -1,5 +1,6 @@
 from SpeakersCorner import SpeakersCorner
 
+
 if __name__ == '__main__':
-    speakersCorner = SpeakersCorner()
-    speakersCorner.start()
+    speakers_corner = SpeakersCorner()
+    speakers_corner.mainloop()
