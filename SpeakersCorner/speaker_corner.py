@@ -61,6 +61,9 @@ class SpeakersCorner(object):
 
         return image.resize(size, resample=Image.ANTIALIAS)
 
+    def _center_dimensions(self, d1, d2):
+        return (d1 / 2) - (d2 / 2)
+
     def mainloop(self):
         while True:
             for event in pygame.event.get():
@@ -84,8 +87,15 @@ class SpeakersCorner(object):
                 # previous images will appear behind the new ones.
                 self._window.fill((0, 0, 0))
 
+                print('Surface size: {} {}'.format(image.get_width(),
+                                                   image.get_height()))
+
+                x = self._center_dimensions(WIDTH, image.get_width())
+                y = self._center_dimensions(HEIGHT, image.get_height())
+
+                print('Position: {} {}'.format(x, y))
                 # display the image at the top left of the screen
-                self._window.blit(image, (0, 0))
+                self._window.blit(image, (x, y))
 
                 # reset the time since the last image was displayed
                 self._time_displayed = time()
