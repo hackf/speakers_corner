@@ -10,6 +10,14 @@ def _package():
         put('dist/SpeakersCorner-0.0.tar.gz')
 
 
+def restart_process():
+    sudo('mv init.d/speakers_corner /etc/init.d/speakers_corner')
+    sudo('chown root:root /etc/init.d/speakers_corner')
+    sudo('chmod u+x /etc/init.d/speakers_corner')
+    sudo('service speakers_corner stop', warn_only=True)
+    sudo('service speakers_corner start &')
+
+
 def deploy_to_rpi():
     _package()
 
@@ -20,9 +28,4 @@ def deploy_to_rpi():
         run('tar -zxvpf SpeakersCorner-0.0.tar.gz')
         with cd('SpeakersCorner-0.0'):
             sudo('python setup.py install')
-            sudo('mv init.d/speakers_corner /etc/init.d/speakers_corner')
             run('mv run.py /home/pi/run.py')
-            sudo('chown root:root /etc/init.d/speakers_corner')
-            sudo('chmod u+x /etc/init.d/speakers_corner')
-            sudo('service speakers_corner stop', warn_only=True)
-            sudo('service speakers_corner start &')

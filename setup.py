@@ -2,7 +2,8 @@ from setuptools import setup, find_packages
 
 requires = [
     'Pillow',
-    'RPi.GPIO',
+    # 'RPi.GPIO',
+    'RPIO',
     'picamera',
     'pygame',
 ]
