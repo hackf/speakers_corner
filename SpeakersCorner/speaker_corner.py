@@ -10,6 +10,9 @@ import picamera
 # import RPi.RPIO as RPIO
 import RPIO
 
+from os.path import join
+from subprocess import Popen
+from datetime import datetime
 from time import time
 from pygame.locals import QUIT
 from StringIO import StringIO
@@ -19,7 +22,22 @@ from PIL import Image
 # Monitor size
 WIDTH = 1280
 HEIGHT = 720
+RECORDING_LENGTH = 10  # tmp
 
+# Testing:
+# To get the 3.5 mm jack to work run the following command
+# $ sudo amixer cset numid=3 1
+
+# TODO - start audio recording
+# http://stackoverflow.com/questions/6867675/audio-recording-in-python
+# https://github.com/waveform80/picamera/issues/191
+
+# TODO
+# - use arecord to record sound!
+# - save the video and audio using the current timestamp
+# - create a subprocess of ffmpeg to mux the video and audio
+# - get the matrix to work? :/
+# arecord -d 10 -f dat -t wav -D usb test.wav
 
 class SpeakersCorner(object):
 
@@ -81,20 +99,51 @@ class SpeakersCorner(object):
     def _center_dimensions(self, d1, d2):
         return (d1 / 2) - (d2 / 2)
 
+    def _generate_timestamp(self):
+        return datetime.fromtimestamp(time()).strftime('%Y-%m-%d-%H:%M:%S')
+
+    def _temp_file_path(self, name, ext):
+        file_name = "{}.{}".format(name, ext)
+        return join('/home/pi/videos/tmp/', file_name)
+
+    def _begin_audio_recording(self, timestamp):
+        temp_audio_file = self._temp_file_path(
+            "audio-{}".format(timestamp),
+            'wav'
+        )
+
+        Popen([
+            'arecord',
+            '-d',
+            RECORDING_LENGTH,
+            '-f',
+            'dat',
+            '-t',
+            'wav',
+            '-D',
+            'hw:1,1',
+            temp_audio_file
+        ])
+
     def _begin_recording(self, *args):
-        # TODO - start audio recording
-        # http://stackoverflow.com/questions/6867675/audio-recording-in-python
-        # https://github.com/waveform80/picamera/issues/191
         print('beginning recording')
+        timestamp = self._generate_timestamp()
         # *args - to catch the additional arguments passed to this function
         # by the callee
+
+        temp_video_file = self._temp_file_path(
+            "video-{}".format(timestamp),
+            'h264'
+        )
+
         RPIO.stop_waiting_for_interrupts()
 
         with picamera.PiCamera() as camera:
-            camera.resolution = (1280, 720)
+            camera.resolution = (WIDTH, HEIGHT)
             camera.start_preview()
-            camera.start_recording('/home/pi/videos/test.h264')
-            camera.wait_recording(90)
+            self._begin_audio_recording(timestamp)
+            camera.start_recording(temp_video_file)
+            camera.wait_recording(RECORDING_LENGTH)
             camera.stop_recording()
             camera.stop_preview()
 
