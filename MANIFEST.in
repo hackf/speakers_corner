@@ -1,2 +1,3 @@
 include run.py
 include init.d/speakers_corner
+include speakers_corner.conf

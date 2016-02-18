@@ -106,7 +106,6 @@ class SpeakersCorner():
         """
 
         ts_file_dir = '/home/pi/speakers-corner/rec'
-        #ts_file_dir = '/Users/jeffszusz/projects/hackf/speakerscorner/rec'
 
         (_, _, ts_files) = os.walk(ts_file_dir).next()
 

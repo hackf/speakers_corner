@@ -18,28 +18,18 @@ from pygame.locals import QUIT
 from StringIO import StringIO
 from PIL import Image
 
-
 # Monitor size
 WIDTH = 1280
 HEIGHT = 720
 RECORDING_LENGTH = 10  # tmp
 
-# Testing:
-# To get the 3.5 mm jack to work run the following command
-# $ sudo amixer cset numid=3 1
-
-# TODO - start audio recording
-# http://stackoverflow.com/questions/6867675/audio-recording-in-python
-# https://github.com/waveform80/picamera/issues/191
-
-# TODO
-# - use arecord to record sound!
-# - save the video and audio using the current timestamp
-# - create a subprocess of ffmpeg to mux the video and audio
-# - get the matrix to work? :/
-# arecord -d 10 -f dat -t wav -D usb test.wav
 
 class SpeakersCorner(object):
+    """
+        Testing the Audo files:
+        To get the 3.5 mm jack to work run the following command
+        $ sudo amixer cset numid=3 1
+    """
 
     def __init__(self):
         pygame.init()
@@ -115,13 +105,13 @@ class SpeakersCorner(object):
         Popen([
             'arecord',
             '-d',
-            RECORDING_LENGTH,
+            str(RECORDING_LENGTH),
             '-f',
             'dat',
             '-t',
             'wav',
             '-D',
-            'hw:1,1',
+            'hw:1,0',
             temp_audio_file
         ])
 

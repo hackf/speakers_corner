@@ -50,7 +50,7 @@ case "$1" in
         else
             startx &
             sleep 5
-            export DISPLAY=:0
+            export DISPLAY=:1
             xset s off #Disable screen saver
             xset -dpms #
             xset s noblank

@@ -11,6 +11,8 @@ def _package():
 
 
 def restart_process():
+    # sudo('mv speakers_corner.conf /etc/supervisor/conf.d/speakers_corner.conf')
+    # sudo('chown root:root /etc/supervisor/conf.d/speakers_corner.conf')
     sudo('mv init.d/speakers_corner /etc/init.d/speakers_corner')
     sudo('chown root:root /etc/init.d/speakers_corner')
     sudo('chmod u+x /etc/init.d/speakers_corner')
@@ -22,10 +24,11 @@ def deploy_to_rpi():
     _package()
 
     # run('mkdir speakers-corner')
-    with cd('speakers-corner'):
+    with cd('speakers_corner'):
         run('mv ../SpeakersCorner-0.0-py2.7.egg ./')
         run('mv ../SpeakersCorner-0.0.tar.gz ./')
         run('tar -zxvpf SpeakersCorner-0.0.tar.gz')
         with cd('SpeakersCorner-0.0'):
             sudo('python setup.py install')
             run('mv run.py /home/pi/run.py')
+            #restart_process()
